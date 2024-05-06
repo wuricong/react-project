@@ -23,6 +23,10 @@ function App() {
       setVisible(false)
     }
 
+    const handleThrottle = () => {
+        console.log(11)
+    }
+
   return (
     <>
       <div>
@@ -47,6 +51,7 @@ function App() {
       </p>
         <Button type="primary" onClick={handleDialogOpen}>打开弹窗</Button>
         <Button type="primary" onClick={handleDialogClose}>关闭弹窗</Button>
+        <Button type="primary" onClick={handleThrottle}>节流模式</Button>
         <Dialog handleDialogClose={handleDialogClose} visible={visible}/>
         <MyComponent />
     </>
