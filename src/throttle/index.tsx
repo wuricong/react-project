@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import { useState } from "react";
+import { useRef, useState } from "react";
 const list = [
   "title1",
   "title2",
@@ -12,13 +12,25 @@ const list = [
 ];
 function Throttle() {
   const [searchList, setSearchList] = useState<string[]>([]);
+  const inputRef = useRef(null);
+  let timer = 0;
   const handleSearch = (e: any) => {
-    console.log(e);
-    setSearchList(() => list.filter((item) => item === "title1"));
+    const { value } = e.target;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      setSearchList(() => list.filter((item) => item.includes(value)));
+      timer = 0;
+    }, 500);
   };
   return (
     <>
-      <Input onInput={handleSearch} placeholder="请输入搜索字段" />
+      <Input
+        ref={inputRef}
+        onInput={handleSearch}
+        placeholder="请输入搜索字段"
+      />
       {searchList.map((item) => (
         <div>{item}</div>
       ))}
