@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "antd";
-import "./index.css";
+import "./index.less";
 export default class MyComponent extends React.Component {
   state = { isHot: false };
   handleChange = () => {
@@ -9,11 +9,13 @@ export default class MyComponent extends React.Component {
   };
   render() {
     return (
-      <div>
+      <div className="bottom-component">
         <Button type="primary" onClick={this.handleChange}>
           改变状态
         </Button>
-        我是类组件{this.state.isHot ? "1" : "2"}
+          <div className="title">
+              我是类组件{this.state.isHot ? "1" : "2"}
+          </div>
       </div>
     );
   }
