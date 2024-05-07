@@ -5,7 +5,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Dialog from "./components/dialog";
 import MyComponent from "./components/class";
-
+import Throttle from "./throttle/index.tsx";
 function App() {
   const [count, setCount] = useState(0);
   const [visible, setVisible] = useState(false);
@@ -20,7 +20,6 @@ function App() {
   };
 
   const handleDialogClose = () => {
-    console.log("关闭");
     setVisible(false);
   };
 
@@ -58,6 +57,7 @@ function App() {
         节流模式
       </Button>
       <Dialog handleDialogClose={handleDialogClose} visible={visible} />
+      <Throttle />
       <MyComponent />
     </>
   );
