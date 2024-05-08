@@ -31,8 +31,8 @@ function Throttle() {
         onInput={handleSearch}
         placeholder="请输入搜索字段"
       />
-      {searchList.map((item) => (
-        <div>{item}</div>
+      {searchList.map((item, index) => (
+        <div key={index}>{item}</div>
       ))}
     </>
   );
