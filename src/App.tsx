@@ -1,20 +1,12 @@
 import "./App.css";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Throttle from "./page/throttle";
-import Home from "./page/home";
+import {prop} from "./interfaces";
 
-function App() {
+function App(prop: prop) {
+    let {slot} = prop
     return (
         <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Throttle/>}/>
-                    <Route path="/throttle" element={<Throttle/>}/>
-                    <Route path="/home" element={<Home/>}/>
-                </Routes>
-            </BrowserRouter>
-        </>
-    );
+            <div>{slot}</div>
+        </>)
 }
 
 export default App;
