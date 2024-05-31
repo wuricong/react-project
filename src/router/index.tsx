@@ -1,7 +1,7 @@
 // 导入创建路由的函数
 import {createBrowserRouter} from "react-router-dom";
 import Layout from "../layout/index";
-import App from "../App";
+import Home from "../page/home/index";
 
 const router = createBrowserRouter([
     {
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/home",
-        Component: App,
+        Component: Home,
     },
 ]);
 
