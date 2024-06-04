@@ -5,7 +5,7 @@ function App(prop: prop) {
     let {slot} = prop
     return (
         <>
-            <div>{slot}</div>
+            <div className="box">{slot}</div>
         </>)
 }
 
