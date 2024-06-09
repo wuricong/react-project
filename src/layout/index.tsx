@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
-import {Button} from "antd";
+// import {Button} from "antd";
 import {MailOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Menu} from 'antd';
 import './index.less'
+// import {NavLink} from "react-router-dom";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -55,39 +56,39 @@ export const MenuLayout: React.FC = () => {
     return (
         <Menu
             onClick={onClick}
-            style={{width: 256}}
+            className="menu-left"
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             mode="inline"
             items={items}
         />
+
     );
 };
 const Layout = () => {
-    let [layer, setLayer] = useState({value: 1, type: "title"});
+    // let [layer, setLayer] = useState({value: 1, type: "title"});
     let [count, setCount] = useState(1)
-    const handleChangeState = () => {
-        setTimeout(() => {
-            setLayer(() => ({...layer, type: "name"}));
-        });
-    };
+    // const handleChangeState = () => {
+    //     setTimeout(() => {
+    //         setLayer(() => ({...layer, type: "name"}));
+    //     });
+    // };
 
     useEffect(() => {
         setCount(count++)
-        console.log(111)
     }, [count])
 
-    const handleAdd = () => {
-        setCount(count + 1)
-    }
+    // const handleAdd = () => {
+    //     setCount(count + 1)
+    // }
     return (
         <div className="menu-class">
-            <MenuLayout/>
-            <div>{layer.type}</div>
-            <div>{count}</div>
-            <Button type="primary" onClick={handleAdd}>加1</Button>
-            <Button onClick={handleChangeState}>异步改变状态</Button>
-            <div style={{color: "white"}}>Count:{layer.type}</div>
+            我是首页
+            {/*<div>{layer.type}</div>*/}
+            {/*<div>{count}</div>*/}
+            {/*<Button type="primary" onClick={handleAdd}>加1</Button>*/}
+            {/*<Button onClick={handleChangeState}>异步改变状态</Button>*/}
+            {/*<div style={{color: "white"}}>Count:{layer.type}</div>*/}
         </div>
     );
 };
