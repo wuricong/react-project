@@ -19,4 +19,19 @@ const router = createBrowserRouter([
     }
 ]);
 
+export const routes = [
+    {
+        path: "/",
+        element: <Layout/>,
+    },
+    {
+        path: "/home",
+        element: <Home/>,
+    },
+    {
+        path: '/throttle',
+        element: <Throttle/>,
+    }
+]
+
 export default router;

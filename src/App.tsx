@@ -1,8 +1,6 @@
 import "./App.css";
-// import {prop} from "./interfaces";
 import React, {useState} from 'react';
-import {RouterProvider} from 'react-router-dom'
-import router from "./router";
+import {routes} from "./router";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -11,6 +9,7 @@ import {
     VideoCameraOutlined,
 } from '@ant-design/icons';
 import {Button, Layout, Menu, theme} from 'antd';
+import {useRoutes, useNavigate} from "react-router-dom";
 
 const App: React.FC = () => {
     // let {slot} = prop
@@ -20,6 +19,8 @@ const App: React.FC = () => {
     //     </>)
     const [collapsed, setCollapsed] = useState(false);
     const {Header, Sider, Content} = Layout;
+    const element = useRoutes(routes)
+    const navigate = useNavigate()
     const {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
@@ -28,18 +29,24 @@ const App: React.FC = () => {
             key: '1',
             icon: <UserOutlined/>,
             label: 'nav 1',
+            path: '/throttle'
         },
         {
             key: '2',
             icon: <VideoCameraOutlined/>,
             label: 'nav 2',
+            path: '/home'
         },
         {
             key: '3',
             icon: <UploadOutlined/>,
             label: 'nav 3',
+            path: '/home'
         },
     ]
+    const handleMenuCLick = () => {
+        navigate('/home')
+    }
     return (
         <Layout style={{height: '100%'}}>
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -48,6 +55,7 @@ const App: React.FC = () => {
                     theme="dark"
                     mode="inline"
                     defaultSelectedKeys={['1']}
+                    onClick={handleMenuCLick}
                     items={items}
                 />
             </Sider>
@@ -73,7 +81,8 @@ const App: React.FC = () => {
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    <RouterProvider router={router}/>
+                    {element}
+                    {/*<RouterProvider router={router}/>*/}
                 </Content>
             </Layout>
         </Layout>
