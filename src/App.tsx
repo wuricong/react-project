@@ -41,11 +41,21 @@ const App: React.FC = () => {
       key: '3',
       icon: <UploadOutlined/>,
       label: 'nav 3',
-      path: '/home'
+      path: '/redux'
+    },
+    {
+      key: '4',
+      icon: <UploadOutlined/>,
+      label: 'nav 4',
+      path: '/canvas'
     },
   ]
-  const handleMenuCLick = () => {
-    navigate('/home')
+  const handleMenuCLick = (val: any) => {
+    const result = items.find(item => item.key === val.key)
+    if (result) {
+      navigate(result.path)
+    }
+
   }
   return (
     <Layout style={{height: '100%'}}>
