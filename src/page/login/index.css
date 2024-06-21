@@ -1,0 +1,17 @@
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: contain; /* 背景图填充方式：按最大边图片比例进行填充并保持图片完整 */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("/Users/wuricong/Desktop/react-vite/public/bg.jpg");
+}
+
+.login-form {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
+}
