@@ -5,7 +5,6 @@
     background-size: contain; /* 背景图填充方式：按最大边图片比例进行填充并保持图片完整 */
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url("/Users/wuricong/Desktop/react-vite/public/bg.jpg");
 }
 
 .login-form {
