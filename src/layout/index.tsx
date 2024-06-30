@@ -1,96 +1,121 @@
-import {useEffect, useState} from "react";
-// import {Button} from "antd";
-import {MailOutlined} from '@ant-design/icons';
-import type {MenuProps} from 'antd';
-import {Menu} from 'antd';
-import './index.less'
-// import {NavLink} from "react-router-dom";
+import "./index.less";
+import React, { useState } from "react";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Button, Layout, Menu, theme } from "antd";
+import { useNavigate, Outlet } from "react-router-dom";
 
-type MenuItem = Required<MenuProps>['items'][number];
-
-const items: MenuItem[] = [
+const Layer: React.FC = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const { Header, Sider, Content } = Layout;
+  const pages = import.meta.glob("./page/**/*.tsx");
+  console.log("pages", pages);
+  const navigate = useNavigate();
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+  const items = [
     {
-        key: 'sub1',
-        label: 'Navigation One',
-        icon: <MailOutlined/>,
-        children: [
-            {
-                key: 'g1',
-                label: 'Item 1',
-                type: 'group',
-                children: [
-                    {key: '1', label: 'page'},
-                    {key: '2', label: 'home'},
-                ],
-            },
-            {
-                key: 'g2',
-                label: 'Item 2',
-                type: 'group',
-                children: [
-                    {key: '3', label: 'Option 3'},
-                    {key: '4', label: 'Option 4'},
-                ],
-            },
-        ],
+      key: "1",
+      icon: <UserOutlined />,
+      label: "nav 1",
+      path: "/page/throttle",
     },
     {
-        type: 'divider',
+      key: "2",
+      icon: <VideoCameraOutlined />,
+      label: "nav 2",
+      path: "/page/home",
     },
     {
-        key: 'grp',
-        label: 'Group',
-        type: 'group',
-        children: [
-            {key: '13', label: 'Option 13'},
-            {key: '14', label: 'Option 14'},
-        ],
+      key: "3",
+      icon: <UploadOutlined />,
+      label: "nav 3",
+      path: "/page/redux",
     },
-];
+    {
+      key: "4",
+      icon: <UploadOutlined />,
+      label: "nav 4",
+      path: "/page/canvas",
+    },
+    {
+      key: "5",
+      icon: <UploadOutlined />,
+      label: "nav 5",
+      path: "/page/SortList",
+    },
+    {
+      key: "6",
+      icon: <UploadOutlined />,
+      label: "nav 6",
+      path: "/Login",
+    },
+  ];
 
-export const MenuLayout: React.FC = () => {
-    const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click ', e);
-    };
+  function handleDebugger() {
+    let startTime = performance.now();
+    // 设置断点
+    // debugger;
+    let endTime = performance.now();
+    // 设置一个阈值，例如100毫秒
+    if (endTime - startTime > 100) {
+      window.location.href = "about:blank";
+    }
+  }
 
-    return (
+  const handleMenuCLick = (val: any) => {
+    console.log(11112222);
+    handleDebugger();
+    const result = items.find((item) => item.key === val.key);
+    if (result) {
+      navigate(result.path);
+    }
+  };
+  return (
+    <Layout style={{ height: "100%", width: "100%" }}>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
         <Menu
-            onClick={onClick}
-            className="menu-left"
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
-            mode="inline"
-            items={items}
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          onClick={handleMenuCLick}
+          items={items}
         />
-
-    );
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: "16px",
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
+        <Content
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+          <Outlet></Outlet>
+        </Content>
+      </Layout>
+    </Layout>
+  );
 };
-const Layout = () => {
-    // let [layer, setLayer] = useState({value: 1, type: "title"});
-    let [count, setCount] = useState(1)
-    // const handleChangeState = () => {
-    //     setTimeout(() => {
-    //         setLayer(() => ({...layer, type: "name"}));
-    //     });
-    // };
 
-    useEffect(() => {
-        setCount(count++)
-    }, [count])
-
-    // const handleAdd = () => {
-    //     setCount(count + 1)
-    // }
-    return (
-        <div className="menu-class">
-            我是首页
-            {/*<div>{layer.type}</div>*/}
-            {/*<div>{count}</div>*/}
-            {/*<Button type="primary" onClick={handleAdd}>加1</Button>*/}
-            {/*<Button onClick={handleChangeState}>异步改变状态</Button>*/}
-            {/*<div style={{color: "white"}}>Count:{layer.type}</div>*/}
-        </div>
-    );
-};
-
-export default Layout;
+export default Layer;
