@@ -1,4 +1,3 @@
-import "./index.less";
 import React, { useState } from "react";
 import {
   MenuFoldOutlined,
@@ -50,12 +49,6 @@ const Layer: React.FC = () => {
       label: "nav 5",
       path: "/page/SortList",
     },
-    {
-      key: "6",
-      icon: <UploadOutlined />,
-      label: "nav 6",
-      path: "/Login",
-    },
   ];
 
   function handleDebugger() {
@@ -70,7 +63,6 @@ const Layer: React.FC = () => {
   }
 
   const handleMenuCLick = (val: any) => {
-    console.log(11112222);
     handleDebugger();
     const result = items.find((item) => item.key === val.key);
     if (result) {
@@ -78,7 +70,7 @@ const Layer: React.FC = () => {
     }
   };
   return (
-    <Layout style={{ height: "100%", width: "100%" }}>
+    <Layout style={{ height: "100%" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical" />
         <Menu

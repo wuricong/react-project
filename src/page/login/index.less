@@ -1,0 +1,43 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain; /* 背景图填充方式：按最大边图片比例进行填充并保持图片完整 */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.login-form {
+  width: 360px;
+  height: 360px;
+  position: relative;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+
+  input {
+    margin: 5px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px 0;
+
+    .ant-input {
+      width: 180px;
+      margin-left: 12px;
+    }
+  }
+
+  .login-btn {
+    position: absolute;
+    bottom: 20px;
+  }
+}

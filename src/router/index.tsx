@@ -7,6 +7,7 @@ import Redux from "../page/redux";
 import Canvas from "../page/canvas";
 import SortList from "../page/sort-list";
 import Login from "../page/login";
+import NotFound from "../page/404";
 
 export const routes = [
   {
@@ -38,5 +39,9 @@ export const routes = [
         element: <SortList />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
