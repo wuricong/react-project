@@ -6,11 +6,12 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme, Modal } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
   const pages = import.meta.glob("./page/**/*.tsx");
   console.log("pages", pages);
@@ -76,6 +77,16 @@ const Layer: React.FC = () => {
       navigate(result.path);
     }
   };
+
+  const handleCloseLogin = () => {
+    setIsModelOpen(true);
+  };
+
+  const handleModelClose = () => {
+    navigate("/");
+    sessionStorage.setItem("password", "");
+    setIsModelOpen(false);
+  };
   return (
     <Layout style={{ height: "100%" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -100,6 +111,9 @@ const Layer: React.FC = () => {
               height: 64,
             }}
           />
+          <Button type="primary" onClick={handleCloseLogin}>
+            退出
+          </Button>
         </Header>
         <Content
           style={{
@@ -113,6 +127,14 @@ const Layer: React.FC = () => {
           <Outlet></Outlet>
         </Content>
       </Layout>
+      <Modal
+        title="退出弹框"
+        open={isModelOpen}
+        onOk={handleModelClose}
+        onCancel={() => setIsModelOpen(false)}
+      >
+        确定要退出登录吗？
+      </Modal>
     </Layout>
   );
 };
