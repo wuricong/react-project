@@ -100,7 +100,10 @@ const Layer: React.FC = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header
+          style={{ padding: 0, background: colorBgContainer }}
+          className="flex justify-between items-center"
+        >
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -111,7 +114,7 @@ const Layer: React.FC = () => {
               height: 64,
             }}
           />
-          <Button type="primary" onClick={handleCloseLogin}>
+          <Button className="mr-4" type="primary" onClick={handleCloseLogin}>
             退出
           </Button>
         </Header>
