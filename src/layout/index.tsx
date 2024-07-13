@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -15,6 +15,13 @@ const Layer: React.FC = () => {
   const pages = import.meta.glob("./page/**/*.tsx");
   console.log("pages", pages);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("password");
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();

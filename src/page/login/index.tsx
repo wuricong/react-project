@@ -12,10 +12,15 @@ const styleUrl = {
 function Login() {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState("admin");
   const [password, setPassword] = useState("");
+
   const handleClick = () => {
-    if (account !== "2260220325") {
+    if (account !== "admin") {
+      messageApi.error("账号错误");
+      return;
+    }
+    if (password !== "2260220325") {
       messageApi.error("密码错误");
       return;
     }
