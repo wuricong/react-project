@@ -8,6 +8,7 @@ import Canvas from "../page/canvas";
 import SortList from "../page/sort-list";
 import Login from "../page/login";
 import NotFound from "../page/404";
+import ResumeTemplate from "../page/resume";
 
 export const routes = [
   {
@@ -39,6 +40,10 @@ export const routes = [
         element: <SortList />,
       },
     ],
+  },
+  {
+    path: "resume",
+    element: <ResumeTemplate />,
   },
   {
     path: "*",
