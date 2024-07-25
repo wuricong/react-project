@@ -15,7 +15,7 @@ function Login() {
   const [account, setAccount] = useState("admin");
   const [password, setPassword] = useState("");
 
-  const handleClick = () => {
+  const handleLogin = () => {
     if (account !== "admin") {
       messageApi.error("账号错误");
       return;
@@ -34,6 +34,14 @@ function Login() {
 
   const handleInputPassword = (val: string) => {
     setPassword(val);
+  };
+
+  const handleKeyDown = (val: any) => {
+    const { code } = val;
+    if (code === "Enter") {
+      handleLogin();
+    }
+    console.log("val", val);
   };
   return (
     <>
@@ -56,10 +64,11 @@ function Login() {
               type="password"
               value={password}
               onChange={(e) => handleInputPassword(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </div>
 
-          <Button className="login-btn" type="primary" onClick={handleClick}>
+          <Button className="login-btn" type="primary" onClick={handleLogin}>
             登录
           </Button>
         </div>

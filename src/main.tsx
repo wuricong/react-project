@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import store from "./store";
 import { Provider } from "react-redux";
+import "./styles/font.css"; //引入字体文件
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

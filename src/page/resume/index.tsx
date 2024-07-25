@@ -1,5 +1,6 @@
 import "./index.less";
 import Personal from "./components/Personal";
+import InfoRow from "@/page/resume/components/info-row";
 
 export default function ResumeTemplate() {
   return (
@@ -7,6 +8,7 @@ export default function ResumeTemplate() {
       <div className="a4">
         <Title />
         <Personal />
+        <InfoRow />
       </div>
     </div>
   );

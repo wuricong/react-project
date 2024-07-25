@@ -8,7 +8,6 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 const getBase64 = (img: FileType, callback: (url: string) => void) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => {
-    // console.log("reader.result", reader.result);
     callback(reader.result as string);
   });
   reader.readAsDataURL(img);
