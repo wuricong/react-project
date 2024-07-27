@@ -5,9 +5,15 @@ import InfoRow from "@/page/resume/components/info-row";
 export default function ResumeTemplate() {
   return (
     <div className="bg-slate-200 w-full h-full flex justify-center">
-      <div className="a4">
+      <div className="px-1 a4">
         <Title />
         <Personal />
+        <InfoRow />
+        <Company />
+        <InfoRow />
+        <MyTechnology />
+        <InfoRow />
+        <Project />
         <InfoRow />
       </div>
     </div>
@@ -23,4 +29,22 @@ function Title() {
       </div>
     </div>
   );
+}
+
+function Company() {
+  return (
+    <div>
+      <div>公司</div>
+      <div>江苏百盛科技有限公司</div>
+      <div>上海宝虎科技有限公司</div>
+    </div>
+  );
+}
+
+function MyTechnology() {
+  return <div>个人技能</div>;
+}
+
+function Project() {
+  return <div>项目经验</div>;
 }

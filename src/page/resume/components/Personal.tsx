@@ -1,6 +1,6 @@
 export default function Personal() {
   return (
-    <div className="px-10 pt-4">
+    <div className="bg-slate-100 px-10 py-2">
       <div className="flex justify-start">
         <div className="w-40 flex-1">
           <span>姓名：</span>

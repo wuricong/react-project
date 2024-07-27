@@ -13,8 +13,13 @@ let Button: any = ({ count, onClickButton, children }: any) => {
 
 Button = React.memo(Button);
 
+function Component2() {
+  console.log("组件渲染");
+  return <div>我是测试渲染的组件</div>;
+}
+
 //useCallback的使用
-export default function Canvas() {
+function Component1() {
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
   const [count3, setCount3] = useState(0);
@@ -46,6 +51,15 @@ export default function Canvas() {
           Button3
         </Button>
       </div>
+    </div>
+  );
+}
+
+export default function Canvas() {
+  return (
+    <div>
+      <Component2 />
+      <Component1 />
     </div>
   );
 }

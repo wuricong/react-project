@@ -41,13 +41,17 @@ function Login() {
     if (code === "Enter") {
       handleLogin();
     }
-    console.log("val", val);
+  };
+
+  const pushAccountInfo = () => {
+    navigate("/resume");
   };
   return (
     <>
       {contextHolder}
       <div className="box" style={styleUrl}>
         <div className="login-form">
+          <i className="iconfont icon-denglu !text-6xl h-2/5 pt-12 mb-2"></i>
           <div className="row">
             <span>账号:</span>
             <Input
@@ -72,6 +76,14 @@ function Login() {
             登录
           </Button>
         </div>
+
+        <Button
+          className="account-info"
+          onClick={pushAccountInfo}
+          type="primary"
+        >
+          个人信息
+        </Button>
       </div>
     </>
   );
