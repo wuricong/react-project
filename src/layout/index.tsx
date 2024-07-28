@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Modal } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
+import "./index.less";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -56,6 +57,34 @@ const Layer: React.FC = () => {
       icon: <UploadOutlined />,
       label: "nav 5",
       path: "/page/SortList",
+    },
+    {
+      key: "6",
+      icon: <UploadOutlined />,
+      label: "组件",
+      path: "",
+      children: [
+        {
+          key: "6-1",
+          label: "列表",
+          path: "/page/list",
+        },
+        {
+          key: "6-2",
+          label: "弹窗",
+          path: "/page/dialog",
+        },
+        {
+          key: "6-3",
+          label: "表格",
+          path: "/page/table",
+        },
+        {
+          key: "6-4",
+          label: "富文本",
+          path: "/page/rich",
+        },
+      ],
     },
   ];
 
@@ -115,7 +144,7 @@ const Layer: React.FC = () => {
             }}
           />
           <Button className="mr-4" type="primary" onClick={handleCloseLogin}>
-            退出
+            退出登录
           </Button>
         </Header>
         <Content
@@ -131,7 +160,7 @@ const Layer: React.FC = () => {
         </Content>
       </Layout>
       <Modal
-        title="退出弹框"
+        title="退出登录"
         open={isModelOpen}
         onOk={handleModelClose}
         onCancel={() => setIsModelOpen(false)}

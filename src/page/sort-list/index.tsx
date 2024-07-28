@@ -4,6 +4,8 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
 import type { GetProp, UploadProps } from "antd";
 
+const { TextArea } = Input;
+
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 const getBase64 = (img: FileType, callback: (url: string) => void) => {
   const reader = new FileReader();
@@ -63,8 +65,10 @@ export const HandleImg = () => {
   };
   return (
     <>
-      <Input
+      <TextArea
+        className="mb-4"
         value={base}
+        rows={6}
         placeholder="base64格式"
         onChange={(e) => handleInput(e.target.value)}
       />
