@@ -1,5 +1,5 @@
 import "./index.less";
-import Background from "../../assets/bg.jpg";
+import Background from "../../assets/bg1.jpg";
 import { Button, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -51,7 +51,7 @@ function Login() {
       {contextHolder}
       <div className="box" style={styleUrl}>
         <div className="login-form">
-          <i className="iconfont icon-denglu !text-6xl h-2/5 pt-12 mb-2"></i>
+          <i className="iconfont icon-denglu !text-6xl h-2/5 pt-12 mb-2 text-white" />
           <div className="row">
             <span>账号:</span>
             <Input
