@@ -4,7 +4,7 @@ import InfoRow from "@/page/resume/components/info-row";
 
 export default function ResumeTemplate() {
   return (
-    <div className="bg-slate-200 w-full h-full flex justify-center">
+    <div className="bg-slate-200 w-full h-full flex justify-center overflow-auto">
       <div className="px-1 a4">
         <Title />
         <Personal />
