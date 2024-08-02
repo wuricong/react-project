@@ -18,8 +18,8 @@ const getBase64 = (img: FileType, callback: (url: string) => void) => {
 export function UploadDmg() {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const handleBeforeUpload = () => {
-    console.log(11);
+  const handleBeforeUpload = (val: any) => {
+    console.log(11, val);
   };
 
   const handleUploadChange: UploadProps["onChange"] = (info) => {
