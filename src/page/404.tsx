@@ -1,5 +1,13 @@
+import imgSrc from "@/assets/404.jpg";
+
 function NotFound() {
-  return <>页面不存在</>;
+  return (
+    <>
+      <div className="w-full h-full">
+        <img src={imgSrc} />
+      </div>
+    </>
+  );
 }
 
 export default NotFound;

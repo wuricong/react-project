@@ -24,6 +24,7 @@ function Title() {
   return (
     <div>
       <div className="line-row text-white bg-slate-400 flex items-center">
+        <i className="iconfont icon-denglu"></i>
         <div className="left"></div>
         <div className="ml-1.5">个人简历</div>
       </div>

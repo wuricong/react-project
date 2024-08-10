@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, theme, Modal } from "antd";
+import { Button, Layout, Menu, theme, Modal, Breadcrumb } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
@@ -10,20 +10,20 @@ const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
-  const pages = import.meta.glob("./page/**/*.tsx");
-  console.log("pages", pages);
   const navigate = useNavigate();
+  const [menuName, setMenuName] = useState([{ label: "首页" }]);
 
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  // @ts-ignore
   function handleDebugger() {
     let startTime = performance.now();
     // 设置断点
@@ -35,11 +35,34 @@ const Layer: React.FC = () => {
     }
   }
 
+  function getCurrentPath(menus: any, kl: string) {
+    const len = kl.split("-");
+    const historyItem: any = [];
+
+    //利用递归进行深度寻找菜单
+    function deepFind(menus: any, i: number = 0): any {
+      if (len.length - 1 === i) {
+        const currentItem = menus.find((menu: any) => menu.key === kl);
+        historyItem.push(currentItem);
+        return { currentItem, historyItem };
+      }
+      const parent = menus.find((menu: any) => menu.key === len[i]);
+      historyItem.push(parent);
+      if (parent.children) {
+        return deepFind(parent.children, ++i);
+      }
+    }
+
+    return deepFind(menus);
+  }
+
   const handleMenuCLick = (val: any) => {
-    handleDebugger();
-    const result = MenuItems.find((item) => item.key === val.key);
-    if (result) {
-      navigate(result.path);
+    const { currentItem, historyItem } = getCurrentPath(MenuItems, val.key);
+    console.log("historyItem", historyItem);
+    setMenuName(historyItem);
+    // console.log("result", result);
+    if (currentItem) {
+      navigate(currentItem.path);
     }
   };
 
@@ -48,9 +71,24 @@ const Layer: React.FC = () => {
   };
 
   const handleModelClose = () => {
-    navigate("/");
+    navigate("/login");
     sessionStorage.setItem("password", "");
     setIsModelOpen(false);
+  };
+
+  const handleBreadcrumb = () => {
+    return menuName.map((menu: any, index) => {
+      if (index + 1 === menuName.length && menuName.length > 1) {
+        return {
+          title: (
+            <a onClick={() => navigate(menu.path)} href="">
+              {menu.label}
+            </a>
+          ),
+        };
+      }
+      return { title: menu.label };
+    });
   };
   return (
     <Layout style={{ height: "100%" }}>
@@ -69,16 +107,19 @@ const Layer: React.FC = () => {
           style={{ padding: 0, background: colorBgContainer }}
           className="flex justify-between items-center"
         >
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: "16px",
-              width: 64,
-              height: 64,
-            }}
-          />
+          <div className="flex items-center">
+            <Button
+              type="text"
+              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{
+                fontSize: "16px",
+                width: 64,
+                height: 64,
+              }}
+            />
+            <Breadcrumb items={handleBreadcrumb()} />
+          </div>
           <Button className="mr-4" type="primary" onClick={handleCloseLogin}>
             退出登录
           </Button>

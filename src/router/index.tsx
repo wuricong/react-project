@@ -10,14 +10,26 @@ import Login from "../page/login";
 import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";
 import Dashboard from "@/page/dashboard/index";
+import Table from "@/page/components/table/index";
+
+function handleRouterPath() {
+  const pages = import.meta.glob([
+    ".././page/**/*.tsx",
+    "!.././page/**/components/**",
+    ".././page/components/*.tsx",
+  ]);
+  console.log("pages", pages);
+}
+
+handleRouterPath();
 
 export const routes = [
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/page",
+    path: "/",
     element: <Layout />,
     children: [
       {
@@ -43,6 +55,10 @@ export const routes = [
       {
         path: "SortList",
         element: <SortList />,
+      },
+      {
+        path: "components",
+        children: [{ path: "list", element: <Table /> }],
       },
     ],
   },

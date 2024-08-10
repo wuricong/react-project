@@ -25,7 +25,7 @@ function Login() {
       return;
     }
     sessionStorage.setItem("password", "2260220325");
-    navigate("/page/home");
+    navigate("/home");
   };
 
   const handleInputAccount = (val: string) => {
