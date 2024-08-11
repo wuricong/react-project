@@ -51,17 +51,17 @@ export const MenuItems = [
       {
         key: "7-2",
         label: "弹窗",
-        path: "/dialog",
+        path: "/components/dialog",
       },
       {
         key: "7-3",
         label: "表格",
-        path: "/table",
+        path: "/components/table",
       },
       {
         key: "7-4",
         label: "富文本",
-        path: "/rich",
+        path: "/components/rich",
       },
     ],
   },

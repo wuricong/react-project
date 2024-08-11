@@ -10,7 +10,9 @@ export default function ({ text, icon }: param) {
   console.log("text, icon", text, icon);
   return (
     <div>
-      <div className="line"></div>
+      <div className="line flex">
+        <div className="mt-auto">{text}</div>
+      </div>
     </div>
   );
 }
