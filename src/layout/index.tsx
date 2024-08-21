@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, theme, Modal, Breadcrumb } from "antd";
+import { Button, Layout, Menu, theme, Modal, Breadcrumb, Tag } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
 import { MenuItems } from "./menu";
+import { headerStyle, tagStyle } from "./style";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -12,7 +13,7 @@ const Layer: React.FC = () => {
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
   const [menuName, setMenuName] = useState([{ label: "首页" }]);
-
+  const [tags, setTags]: any = useState([MenuItems[0]]);
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -58,9 +59,11 @@ const Layer: React.FC = () => {
 
   const handleMenuCLick = (val: any) => {
     const { currentItem, historyItem } = getCurrentPath(MenuItems, val.key);
-    console.log("historyItem", historyItem);
+    const result = tags.find((tag: any) => tag.key === currentItem.key);
+    if (result) return;
+    console.log("historyItem", historyItem, currentItem);
+    setTags([...tags, currentItem]);
     setMenuName(historyItem);
-    // console.log("result", result);
     if (currentItem) {
       navigate(currentItem.path);
     }
@@ -90,6 +93,15 @@ const Layer: React.FC = () => {
       return { title: menu.label };
     });
   };
+
+  const preventDefault = (e: any, key: any) => {
+    e.preventDefault();
+    setTags(tags.filter((tag: any) => tag.key !== key));
+  };
+
+  const handleTagClick = (path: string) => {
+    navigate(path);
+  };
   return (
     <Layout style={{ height: "100%" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -104,7 +116,7 @@ const Layer: React.FC = () => {
       </Sider>
       <Layout>
         <Header
-          style={{ padding: 0, background: colorBgContainer }}
+          style={{ padding: 0, background: colorBgContainer, ...headerStyle }}
           className="flex justify-between items-center"
         >
           <div className="flex items-center">
@@ -124,6 +136,21 @@ const Layer: React.FC = () => {
             退出登录
           </Button>
         </Header>
+        {tags.length ? (
+          <div style={tagStyle}>
+            {tags.map((tag: any) => (
+              <Tag
+                onClick={() => handleTagClick(tag.path)}
+                className="mx-1 cursor-pointer"
+                key={tag.key}
+                closeIcon
+                onClose={(e) => preventDefault(e, tag.key)}
+              >
+                {tag?.label}
+              </Tag>
+            ))}
+          </div>
+        ) : null}
         <Content
           style={{
             margin: "24px 16px",

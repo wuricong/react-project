@@ -1,6 +1,17 @@
-import { Table } from "antd";
+import { Space, Table, Button } from "antd";
+import Dialog from "@/page/components/table/Dialog";
+import http from "@/service/index";
+import React from "react";
 
 export default function () {
+  let dialogRef: any = React.createRef();
+  const handleRow = (val: any) => {
+    dialogRef.current.handleModalOpen();
+    http.get("/test").then((res) => {
+      console.log("val", val);
+      console.log("res", res);
+    });
+  };
   const dataSource = [
     {
       key: "1",
@@ -32,10 +43,23 @@ export default function () {
       dataIndex: "address",
       key: "address",
     },
+    {
+      title: "Action",
+      key: "action",
+      render: (_: any, record: any) => (
+        <Space>
+          <Button type="primary" onClick={() => handleRow(record)}>
+            编辑
+          </Button>
+        </Space>
+      ),
+    },
   ];
   return (
     <>
+      <div className="title">基础表格</div>
       <Table dataSource={dataSource} columns={columns} />
+      <Dialog onRef={dialogRef} />
     </>
   );
 }
