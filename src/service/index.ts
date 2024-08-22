@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { message } from "antd";
 
 //type 字符串字面量
@@ -25,8 +25,24 @@ http.interceptors.response.use((res) => {
   return res;
 });
 
-export function requestApi(url: string, method: reqMethods) {
-  http[method](url);
+/**
+ * 请求封装
+ * @param url 请求的URL地址
+ * @param method 请求的方法
+ * @param config 请求的数据及其他配置
+ * */
+export function requestApi(
+  url: string,
+  method?: reqMethods,
+  config?: AxiosRequestConfig,
+) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await http[method || "get"](url, { ...config });
+      resolve(res);
+    } catch (e: any) {
+      message.error("请求错误");
+      reject(e);
+    }
+  });
 }
-
-export default http;

@@ -3,7 +3,7 @@ import Dialog from "../../components/dialog";
 import MyComponent from "../../components/class";
 import { useState } from "react";
 import "./index.less";
-import http from "@/service";
+// import http from "@/service";
 
 export default function Home() {
   const [visible, setVisible] = useState(false);
@@ -21,9 +21,9 @@ export default function Home() {
   };
 
   const handleRequest = () => {
-    http.get("/test").then((res) => {
-      console.log("res", res);
-    });
+    // http.get("/test").then((res) => {
+    //   console.log("res", res);
+    // });
   };
   return (
     <div className="home">

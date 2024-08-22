@@ -1,15 +1,15 @@
 import { Space, Table, Button } from "antd";
 import Dialog from "@/page/components/table/Dialog";
-import http from "@/service/index";
+import { requestApi } from "@/service";
 import React from "react";
 
 export default function () {
   let dialogRef: any = React.createRef();
   const handleRow = (val: any) => {
+    console.log("val", val);
     dialogRef.current.handleModalOpen();
-    http.get("/test").then((res) => {
-      console.log("val", val);
-      console.log("res", res);
+    requestApi("/test").then((res) => {
+      console.log("res2222", res);
     });
   };
   const dataSource = [
