@@ -11,14 +11,12 @@ const http: AxiosInstance = axios.create({
 
 // 请求拦截
 http.interceptors.request.use((req) => {
-  console.log("res", req);
   return req;
 });
 
 //响应拦截
 http.interceptors.response.use((res) => {
   const { status } = res;
-  console.log("res1111", res, status);
   if (status === 404) {
     message.error("请求错误");
   }
