@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterSlice.js";
+import { Button } from "antd";
 
 export default function Counter() {
   const count = useSelector((state: any) => {
@@ -11,19 +12,21 @@ export default function Counter() {
   return (
     <div>
       <div>
-        <button
+        <Button
+          type={"primary"}
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
         >
           Increment
-        </button>
+        </Button>
         <span>当前值{count}</span>
-        <button
+        <Button
+          type={"primary"}
           aria-label="Decrement value"
           onClick={() => dispatch(decrement())}
         >
           Decrement
-        </button>
+        </Button>
       </div>
     </div>
   );

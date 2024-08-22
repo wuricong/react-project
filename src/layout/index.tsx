@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, theme, Modal, Breadcrumb, Tag } from "antd";
+import { Button, Layout, Menu, theme, Modal, Breadcrumb, Tabs } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
 import { MenuItems } from "./menu";
-import { headerStyle, tagStyle } from "./style";
+import { headerStyle } from "./style";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -97,13 +97,15 @@ const Layer: React.FC = () => {
     });
   };
 
-  const preventDefault = (e: any, key: any) => {
-    e.preventDefault();
-    setTags(tags.filter((tag: any) => tag.key !== key));
+  const handleTagClick = (key: string) => {
+    const path = tags.find((tag: any) => tag.key === key)?.path;
+    if (path) {
+      navigate(path);
+    }
   };
 
-  const handleTagClick = (path: string) => {
-    navigate(path);
+  const handleRemove = (key: any) => {
+    setTags(tags.filter((tag: any) => tag.key !== key));
   };
   return (
     <Layout style={{ height: "100%" }}>
@@ -140,19 +142,15 @@ const Layer: React.FC = () => {
           </Button>
         </Header>
         {tags.length ? (
-          <div style={tagStyle}>
-            {tags.map((tag: any) => (
-              <Tag
-                onClick={() => handleTagClick(tag.path)}
-                className="mx-1 cursor-pointer"
-                key={tag.key}
-                closeIcon
-                onClose={(e) => preventDefault(e, tag.key)}
-              >
-                {tag?.label}
-              </Tag>
-            ))}
-          </div>
+          <Tabs
+            size={"small"}
+            hideAdd
+            type="editable-card"
+            onTabClick={handleTagClick}
+            onEdit={handleRemove}
+            className="mx-1 cursor-pointer"
+            items={tags}
+          />
         ) : null}
         <Content
           style={{
