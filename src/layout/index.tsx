@@ -14,6 +14,7 @@ const Layer: React.FC = () => {
   const navigate = useNavigate();
   const [menuName, setMenuName] = useState([{ label: "首页" }]);
   const [tags, setTags]: any = useState([MenuItems[0]]);
+  const [currentSelectItem, serCurrentSelectItem]: any = useState({});
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -60,12 +61,14 @@ const Layer: React.FC = () => {
   const handleMenuCLick = (val: any) => {
     const { currentItem, historyItem } = getCurrentPath(MenuItems, val.key);
     const result = tags.find((tag: any) => tag.key === currentItem.key);
-    if (result) return;
     console.log("historyItem", historyItem, currentItem);
-    setTags([...tags, currentItem]);
-    setMenuName(historyItem);
-    if (currentItem) {
+    if (!result) {
+      setTags([...tags, currentItem]);
+      setMenuName(historyItem);
+    }
+    if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
       navigate(currentItem.path);
+      serCurrentSelectItem(currentItem);
     }
   };
 

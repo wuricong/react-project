@@ -2,7 +2,7 @@ import "./index.less";
 import Background from "../../assets/bg1.jpg";
 import { Button, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { createRef, useEffect, useState } from "react";
 
 const styleUrl = {
   backgroundImage: `url(${Background})`,
@@ -14,7 +14,11 @@ function Login() {
   const [messageApi, contextHolder] = message.useMessage();
   const [account, setAccount] = useState("admin");
   const [password, setPassword] = useState("");
-
+  const input: any = createRef();
+  // 初次挂载页面密码框聚焦
+  useEffect(() => {
+    input.current.focus();
+  }, []);
   const handleLogin = () => {
     if (account !== "admin") {
       messageApi.error("账号错误");
@@ -64,6 +68,7 @@ function Login() {
           <div className="row">
             <span>密码:</span>
             <Input
+              ref={input}
               placeholder="请输入密码"
               type="password"
               value={password}
