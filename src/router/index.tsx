@@ -20,16 +20,12 @@ function handleRouterPath() {
     "!.././page/**/components/**",
     ".././page/components/*.tsx",
   ]);
-  console.log("pages", pages);
+  console.log("pages111", pages);
 }
 
 handleRouterPath();
 
 export const routes = [
-  {
-    path: "/login",
-    element: <Login />,
-  },
   {
     path: "/",
     element: <Layout />,
@@ -63,6 +59,10 @@ export const routes = [
         children: [{ path: "list", element: <Table /> }],
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
   {
     path: "resume",
