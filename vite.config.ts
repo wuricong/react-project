@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url)); // esModule èŽ·å
 export default defineConfig({
   base: "./",
   resolve: {
-    alias: { "@": "./src" },
+    alias: { "@": path.resolve(__dirname, "./src") },
   },
   plugins: [react()],
   server: {
