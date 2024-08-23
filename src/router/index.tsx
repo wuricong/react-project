@@ -12,7 +12,7 @@ import ResumeTemplate from "../page/resume";
 import Dashboard from "../page/dashboard/index";
 import Table from "../page/components/table/index";
 
-console.log("Login222", Login);
+console.log("Login2223", Login);
 
 function handleRouterPath() {
   const pages = import.meta.glob([
@@ -27,11 +27,11 @@ handleRouterPath();
 
 export const routes = [
   {
-    path: "/login",
+    path: "/",
     element: <Login />,
   },
   {
-    path: "/",
+    path: "/login",
     element: <Layout />,
     children: [
       {
