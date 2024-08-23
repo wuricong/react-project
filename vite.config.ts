@@ -9,7 +9,7 @@ import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // esModule 获取文件绝对路径
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "./",
+  base: "./react-project/",
   resolve: {
     alias: { "@": "/src" },
   },
