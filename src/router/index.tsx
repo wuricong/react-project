@@ -6,13 +6,13 @@ import Throttle from "../page/throttle";
 import Redux from "../page/redux";
 import Canvas from "../page/canvas";
 import SortList from "../page/sort-list";
-import Login from "@/page/login";
+import Login from "../page/login";
 import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";
 import Dashboard from "../page/dashboard/index";
-import Table from "@/page/components/table/index";
+import Table from "../page/components/table/index";
 
-console.log("Login111", Login);
+console.log("Login222", Login);
 
 function handleRouterPath() {
   const pages = import.meta.glob([
