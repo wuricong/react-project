@@ -7,12 +7,12 @@
 // import Canvas from "../page/canvas";
 // import SortList from "../page/sort-list";
 import Login from "../page/login";
-// import NotFound from "../page/404";
+import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";
 // import Dashboard from "../page/dashboard/index";
 // import Table from "../page/components/table/index";
 
-console.log("L", Login);
+console.log("LI", Login);
 
 // function handleRouterPath() {
 //   const pages = import.meta.glob([
@@ -61,7 +61,7 @@ export const routes = [
   //   ],
   // },
   {
-    path: "/",
+    path: "",
     element: <Login />,
   },
   {
@@ -70,6 +70,6 @@ export const routes = [
   },
   {
     path: "*",
-    element: <Login />,
+    element: <NotFound />,
   },
 ];
