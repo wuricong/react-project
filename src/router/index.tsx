@@ -9,7 +9,7 @@ import SortList from "../page/sort-list";
 import Login from "@/page/login";
 import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";
-import Dashboard from "@/page/dashboard/index";
+import Dashboard from "../page/dashboard/index";
 import Table from "@/page/components/table/index";
 
 console.log("Login", Login);
