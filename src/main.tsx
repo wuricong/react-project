@@ -1,5 +1,5 @@
 import React from "react";
-import { ConfigProvider } from "antd";
+// import { ConfigProvider } from "antd";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
@@ -11,20 +11,20 @@ import "./assets/iconfont/iconfont.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        token: {
-          // Seed Token，影响范围大
-          colorPrimary: "#722ed1",
-          borderRadius: 6,
-        },
-      }}
-    >
-      <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </BrowserRouter>
-    </ConfigProvider>
+    {/*<ConfigProvider*/}
+    {/*  theme={{*/}
+    {/*    token: {*/}
+    {/*      // Seed Token，影响范围大*/}
+    {/*      colorPrimary: "#722ed1",*/}
+    {/*      borderRadius: 6,*/}
+    {/*    },*/}
+    {/*  }}*/}
+    {/*>*/}
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
+    {/*</ConfigProvider>*/}
   </React.StrictMode>,
 );

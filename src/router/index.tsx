@@ -20,7 +20,7 @@ function handleRouterPath() {
     "!.././page/**/components/**",
     ".././page/components/*.tsx",
   ]);
-  console.log("pages111", pages);
+  console.log("pages222", pages);
 }
 
 handleRouterPath();
