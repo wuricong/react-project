@@ -18,7 +18,7 @@ const Layer: React.FC = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
-      navigate("/login");
+      // navigate("/login");
     }
   }, []);
   const {
