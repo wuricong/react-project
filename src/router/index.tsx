@@ -12,7 +12,7 @@ import ResumeTemplate from "../page/resume";
 import Dashboard from "../page/dashboard/index";
 import Table from "../page/components/table/index";
 
-console.log("Login2223", Login);
+console.log("Login2299", Login);
 
 function handleRouterPath() {
   const pages = import.meta.glob([
