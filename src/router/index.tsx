@@ -12,18 +12,18 @@ import ResumeTemplate from "../page/resume";
 import Dashboard from "../page/dashboard/index";
 import Table from "../page/components/table/index";
 
-console.log("Login111222", Login);
+console.log("L", Login);
 
-function handleRouterPath() {
-  const pages = import.meta.glob([
-    ".././page/**/*.tsx",
-    "!.././page/**/components/**",
-    ".././page/components/*.tsx",
-  ]);
-  console.log("pages222", pages);
-}
-
-handleRouterPath();
+// function handleRouterPath() {
+//   const pages = import.meta.glob([
+//     ".././page/**/*.tsx",
+//     "!.././page/**/components/**",
+//     ".././page/components/*.tsx",
+//   ]);
+//   console.log("pages222", pages);
+// }
+//
+// handleRouterPath();
 
 export const routes = [
   {
@@ -61,7 +61,7 @@ export const routes = [
     ],
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
