@@ -15,11 +15,10 @@ const Layer: React.FC = () => {
   const [menuName, setMenuName] = useState([{ label: "首页" }]);
   const [tags, setTags]: any = useState([MenuItems[0]]);
   const [currentSelectItem, serCurrentSelectItem]: any = useState({});
-  console.log(9999999);
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
-      // navigate("/login");
+      navigate("/login");
     }
   }, []);
   const {
