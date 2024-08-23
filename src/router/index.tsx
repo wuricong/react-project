@@ -12,7 +12,7 @@ import ResumeTemplate from "../page/resume";
 // import Dashboard from "../page/dashboard/index";
 // import Table from "../page/components/table/index";
 
-console.log("LI", Login);
+console.log("LI99", Login);
 
 // function handleRouterPath() {
 //   const pages = import.meta.glob([
