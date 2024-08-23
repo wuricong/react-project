@@ -10,21 +10,22 @@ import "./index.css";
 import "./assets/iconfont/iconfont.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    {/*<ConfigProvider*/}
-    {/*  theme={{*/}
-    {/*    token: {*/}
-    {/*      // Seed Token，影响范围大*/}
-    {/*      colorPrimary: "#722ed1",*/}
-    {/*      borderRadius: 6,*/}
-    {/*    },*/}
-    {/*  }}*/}
-    {/*>*/}
-    <BrowserRouter>
+  <BrowserRouter>
+    <React.StrictMode>
+      {/*<ConfigProvider*/}
+      {/*  theme={{*/}
+      {/*    token: {*/}
+      {/*      // Seed Token，影响范围大*/}
+      {/*      colorPrimary: "#722ed1",*/}
+      {/*      borderRadius: 6,*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*>*/}
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
-    {/*</ConfigProvider>*/}
-  </React.StrictMode>,
+      {/*</ConfigProvider>*/}
+    </React.StrictMode>
+    ,
+  </BrowserRouter>,
 );
