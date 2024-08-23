@@ -10,7 +10,7 @@ import "./index.css";
 import "./assets/iconfont/iconfont.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+  <BrowserRouter basename={"/react-project/"}>
     <React.StrictMode>
       {/*<ConfigProvider*/}
       {/*  theme={{*/}
