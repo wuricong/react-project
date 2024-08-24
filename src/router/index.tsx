@@ -27,6 +27,10 @@ handleRouterPath();
 
 export const routes = [
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
     element: <Layout />,
     children: [
@@ -59,10 +63,6 @@ export const routes = [
         children: [{ path: "list", element: <Table /> }],
       },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
   {
     path: "resume",
