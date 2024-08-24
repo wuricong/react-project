@@ -12,7 +12,7 @@ import "./assets/iconfont/iconfont.css";
 console.log(1, import.meta.env.MODE);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter
-    basename={import.meta.env.MODE === "development" ? "" : " /react-project"}
+    basename={import.meta.env.MODE === "development" ? "" : "/react-project"}
   >
     <React.StrictMode>
       <ConfigProvider
