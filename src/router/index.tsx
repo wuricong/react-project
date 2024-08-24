@@ -61,7 +61,7 @@ export const routes = [
     ],
   },
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
