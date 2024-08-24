@@ -20,7 +20,7 @@ function Throttle() {
   const [searchList, setSearchList] = useState<string[]>([]);
   const inputRef = useRef(null);
   const [count, setCount] = useState(1);
-  let timer = 0;
+  let timer: any = 0;
   const handleSearch = (e: any) => {
     setCount(count + 1);
     const { value } = e.target;
