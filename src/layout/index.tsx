@@ -15,7 +15,6 @@ const Layer: React.FC = () => {
   const [menuName, setMenuName] = useState([{ label: "首页" }]);
   const [tags, setTags]: any = useState([MenuItems[0]]);
   const [currentSelectItem, serCurrentSelectItem]: any = useState({});
-  console.log("2222");
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -110,7 +109,12 @@ const Layer: React.FC = () => {
   };
   return (
     <Layout style={{ height: "100%" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        className="h-full overflow-y-scroll"
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+      >
         <img className="demo-logo-vertical" src={imgUrl} alt="" />
         <Menu
           theme="dark"
