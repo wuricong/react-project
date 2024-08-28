@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { DoubleLeftOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, theme, Modal, Breadcrumb, Tabs } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
@@ -110,12 +110,12 @@ const Layer: React.FC = () => {
   return (
     <Layout style={{ height: "100%" }}>
       <Sider
-        className="h-full overflow-y-scroll"
+        className="h-full overflow-y-scroll relative"
         trigger={null}
         collapsible
         collapsed={collapsed}
       >
-        <img className="demo-logo-vertical" src={imgUrl} alt="" />
+        <img className="demo-logo-vertical" src={imgUrl} />
         <Menu
           theme="dark"
           mode="inline"
@@ -123,23 +123,20 @@ const Layer: React.FC = () => {
           onClick={handleMenuCLick}
           items={MenuItems}
         />
+        <DoubleLeftOutlined
+          style={{
+            transform: collapsed ? "rotateY(180deg)" : "rotateY(0deg)",
+          }}
+          className="btn-size absolute"
+          onClick={() => setCollapsed(!collapsed)}
+        />
       </Sider>
       <Layout>
         <Header
           style={{ padding: 0, background: colorBgContainer, ...headerStyle }}
           className="flex justify-between items-center"
         >
-          <div className="flex items-center">
-            <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            />
+          <div className="flex items-center ml-2">
             <Breadcrumb items={handleBreadcrumb()} />
           </div>
           <Button className="mr-4" type="primary" onClick={handleCloseLogin}>
