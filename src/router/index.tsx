@@ -11,6 +11,7 @@ import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";
 import Dashboard from "../page/dashboard/index";
 import Table from "../page/components/table/index";
+import Dialog from "../page/components/dialog/index";
 
 console.log("LI9", Login);
 
@@ -60,7 +61,10 @@ export const routes = [
       },
       {
         path: "components",
-        children: [{ path: "list", element: <Table /> }],
+        children: [
+          { path: "list", element: <Table /> },
+          { path: "dialog", element: <Dialog /> },
+        ],
       },
     ],
   },

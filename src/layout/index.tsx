@@ -17,6 +17,7 @@ const Layer: React.FC = () => {
   const [tags, setTags]: any = useState([
     { ...MenuItems[0], closeIcon: false },
   ]);
+  const [activeKey, setActiveKey] = useState("1");
   const [currentSelectItem, serCurrentSelectItem]: any = useState({});
   useEffect(() => {
     const token = sessionStorage.getItem("password");
@@ -72,6 +73,7 @@ const Layer: React.FC = () => {
     if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
       navigate(currentItem.path);
       serCurrentSelectItem(currentItem);
+      setActiveKey(currentItem.key);
     }
   };
 
@@ -109,6 +111,10 @@ const Layer: React.FC = () => {
 
   const handleRemove = (key: any) => {
     setTags(tags.filter((tag: any) => tag.key !== key));
+    if (activeKey === key) {
+      setActiveKey("1");
+      navigate("/home");
+    }
   };
   return (
     <Layout style={{ height: "100%" }}>
@@ -146,17 +152,16 @@ const Layer: React.FC = () => {
           </div>
           <SettingDropdown handleCloseLogin={handleCloseLogin} />
         </Header>
-        {tags.length ? (
-          <Tabs
-            size={"small"}
-            hideAdd
-            type="editable-card"
-            onTabClick={handleTagClick}
-            onEdit={handleRemove}
-            className="mx-1 cursor-pointer"
-            items={tags}
-          />
-        ) : null}
+        <Tabs
+          size={"small"}
+          hideAdd
+          type="editable-card"
+          onTabClick={handleTagClick}
+          onEdit={handleRemove}
+          className="mx-1 cursor-pointer"
+          items={tags}
+          activeKey={activeKey}
+        />
         <Content
           style={{
             margin: "24px 16px",
