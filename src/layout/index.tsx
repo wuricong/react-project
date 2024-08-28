@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { DoubleLeftOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, theme, Modal, Breadcrumb, Tabs } from "antd";
+import { Layout, Menu, theme, Modal, Breadcrumb, Tabs } from "antd";
 import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
 import { MenuItems } from "./menu";
 import { headerStyle } from "./style";
+import { SettingDropdown } from "./components/dropdown";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
-  const [menuName, setMenuName] = useState([{ label: "首页" }]);
-  const [tags, setTags]: any = useState([MenuItems[0]]);
+  const [menuName, setMenuName] = useState([{ label: "首页" }]); //面包屑
+  const [tags, setTags]: any = useState([
+    { ...MenuItems[0], closeIcon: false },
+  ]);
   const [currentSelectItem, serCurrentSelectItem]: any = useState({});
   useEffect(() => {
     const token = sessionStorage.getItem("password");
@@ -125,7 +128,9 @@ const Layer: React.FC = () => {
         />
         <DoubleLeftOutlined
           style={{
-            transform: collapsed ? "rotateY(180deg)" : "rotateY(0deg)",
+            transform: collapsed
+              ? "translateY(-50%) rotateY(180deg)"
+              : "translateY(-50%) rotateY(0deg)",
           }}
           className="btn-size absolute"
           onClick={() => setCollapsed(!collapsed)}
@@ -139,9 +144,7 @@ const Layer: React.FC = () => {
           <div className="flex items-center ml-2">
             <Breadcrumb items={handleBreadcrumb()} />
           </div>
-          <Button className="mr-4" type="primary" onClick={handleCloseLogin}>
-            退出登录
-          </Button>
+          <SettingDropdown handleCloseLogin={handleCloseLogin} />
         </Header>
         {tags.length ? (
           <Tabs
