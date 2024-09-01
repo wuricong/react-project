@@ -7,6 +7,7 @@ import "./index.less";
 import { MenuItems } from "./menu";
 import { headerStyle } from "./style";
 import { SettingDropdown } from "./components/dropdown";
+import { Pifu } from "@/assets/svg";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -104,17 +105,20 @@ const Layer: React.FC = () => {
 
   const handleTagClick = (key: string) => {
     const path = tags.find((tag: any) => tag.key === key)?.path;
+    setActiveKey(key);
     if (path) {
       navigate(path);
     }
   };
 
   const handleRemove = (key: any) => {
-    setTags(tags.filter((tag: any) => tag.key !== key));
     if (activeKey === key) {
-      setActiveKey("1");
+      setActiveKey(
+        tags[tags.findIndex((tag: any) => tag.key === key) - 1]?.key || "1",
+      );
       navigate("/home");
     }
+    setTags(tags.filter((tag: any) => tag.key !== key));
   };
   return (
     <Layout style={{ height: "100%" }}>
@@ -150,7 +154,10 @@ const Layer: React.FC = () => {
           <div className="flex items-center ml-2">
             <Breadcrumb items={handleBreadcrumb()} />
           </div>
-          <SettingDropdown handleCloseLogin={handleCloseLogin} />
+          <div className="flex">
+            <Pifu />
+            <SettingDropdown handleCloseLogin={handleCloseLogin} />
+          </div>
         </Header>
         <Tabs
           size={"small"}

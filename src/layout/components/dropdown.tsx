@@ -10,15 +10,19 @@ export function SettingDropdown({ handleCloseLogin }: props) {
   const items: MenuProps["items"] = [
     {
       label: (
-        <Button
-          className="mr-4"
-          type="primary"
-          onClick={() => handleCloseLogin()}
-        >
-          退出登录
+        <Button type="primary" onClick={() => handleCloseLogin()}>
+          个人信息
         </Button>
       ),
       key: "0",
+    },
+    {
+      label: (
+        <Button type="primary" onClick={() => handleCloseLogin()}>
+          退出登录
+        </Button>
+      ),
+      key: "1",
     },
   ];
 

@@ -63,6 +63,11 @@ export const MenuItems = [
         label: "富文本",
         path: "/components/rich",
       },
+      {
+        key: "7-5",
+        label: "表单",
+        path: "/components/form",
+      },
     ],
   },
 ];

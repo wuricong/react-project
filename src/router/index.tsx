@@ -12,6 +12,7 @@ import ResumeTemplate from "../page/resume";
 import Dashboard from "../page/dashboard/index";
 import Table from "../page/components/table/index";
 import Dialog from "../page/components/dialog/index";
+import Form from "@/page/components/form/index";
 
 console.log("LI9", Login);
 
@@ -64,6 +65,7 @@ export const routes = [
         children: [
           { path: "list", element: <Table /> },
           { path: "dialog", element: <Dialog /> },
+          { path: "form", element: <Form /> },
         ],
       },
     ],
