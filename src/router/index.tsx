@@ -14,22 +14,20 @@ import Table from "../page/components/table/index";
 import Dialog from "../page/components/dialog/index";
 import Form from "@/page/components/form/index";
 
-console.log("LI9", Login);
-
 function handleRouterPath() {
   const pages = import.meta.glob([
     ".././page/**/*.tsx",
     "!.././page/**/components/**",
     ".././page/components/*.tsx",
   ]);
-  console.log("pages222", pages);
+  console.log("pages", pages);
 }
 
 handleRouterPath();
 
 export const routes = [
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
