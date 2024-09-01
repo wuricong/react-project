@@ -30,4 +30,9 @@ export default defineConfig({
       plugins: [tailwindcss],
     },
   },
+  build: {
+    // outDir: "react-project",
+    // assetsDir: "react-project/assets",
+    sourcemap: true,
+  },
 });
