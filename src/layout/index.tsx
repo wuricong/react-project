@@ -16,11 +16,11 @@ const Layer: React.FC = () => {
   const navigate = useNavigate();
   const [menuActive, setMenuActive] = useState(["1"]);
   const [menuName, setMenuName] = useState([{ label: "首页" }]); //面包屑
-  const [tags, setTags]: any = useState([
+  const [tags, setTags] = useState<any>([
     { ...MenuItems[0], closeIcon: false },
   ]);
   const [activeKey, setActiveKey] = useState("1");
-  const [currentSelectItem, serCurrentSelectItem]: any = useState({});
+  const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -72,11 +72,12 @@ const Layer: React.FC = () => {
       setTags([...tags, currentItem]);
       setMenuActive([currentItem.key]);
       setMenuName(historyItem);
+      setActiveKey(currentItem.key);
     }
+    // 防止点击相同标签时重复刷新
     if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
       navigate(currentItem.path);
-      serCurrentSelectItem(currentItem);
-      setActiveKey(currentItem.key);
+      setCurrentSelectItem(currentItem);
     }
   };
 
@@ -106,7 +107,9 @@ const Layer: React.FC = () => {
   };
 
   const handleTagClick = (key: string) => {
+    const { historyItem } = getCurrentPath(MenuItems, key);
     const path = tags.find((tag: any) => tag.key === key)?.path;
+    setMenuName(historyItem);
     setActiveKey(key);
     setMenuActive([key]);
     if (path) {
@@ -119,6 +122,8 @@ const Layer: React.FC = () => {
       const index = tags.findIndex((tag: any) => tag.key === key) - 1;
       setActiveKey(tags[index]?.key || "1");
       setMenuActive(tags[index]?.key || "1");
+      const { historyItem } = getCurrentPath(MenuItems, tags[index]?.key);
+      setMenuName(historyItem);
       navigate("/home");
     }
     setTags(tags.filter((tag: any) => tag.key !== key));
