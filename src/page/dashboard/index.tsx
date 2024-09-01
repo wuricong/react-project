@@ -1,5 +1,6 @@
 import React from "react";
 import { Line } from "@ant-design/charts";
+import DemoBar from "./components/Bar";
 
 const Page: React.FC = () => {
   const data = [
@@ -21,7 +22,12 @@ const Page: React.FC = () => {
     yField: "value",
   };
 
-  return <Line {...config} />;
+  return (
+    <>
+      <Line {...config} />
+      <DemoBar />
+    </>
+  );
 };
 
 export default Page;

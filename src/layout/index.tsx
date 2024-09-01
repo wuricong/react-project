@@ -14,6 +14,7 @@ const Layer: React.FC = () => {
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
+  const [menuActive, setMenuActive] = useState(["1"]);
   const [menuName, setMenuName] = useState([{ label: "首页" }]); //面包屑
   const [tags, setTags]: any = useState([
     { ...MenuItems[0], closeIcon: false },
@@ -69,6 +70,7 @@ const Layer: React.FC = () => {
     console.log("historyItem", historyItem, currentItem);
     if (!result) {
       setTags([...tags, currentItem]);
+      setMenuActive([currentItem.key]);
       setMenuName(historyItem);
     }
     if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
@@ -106,6 +108,7 @@ const Layer: React.FC = () => {
   const handleTagClick = (key: string) => {
     const path = tags.find((tag: any) => tag.key === key)?.path;
     setActiveKey(key);
+    setMenuActive([key]);
     if (path) {
       navigate(path);
     }
@@ -113,9 +116,9 @@ const Layer: React.FC = () => {
 
   const handleRemove = (key: any) => {
     if (activeKey === key) {
-      setActiveKey(
-        tags[tags.findIndex((tag: any) => tag.key === key) - 1]?.key || "1",
-      );
+      const index = tags.findIndex((tag: any) => tag.key === key) - 1;
+      setActiveKey(tags[index]?.key || "1");
+      setMenuActive(tags[index]?.key || "1");
       navigate("/home");
     }
     setTags(tags.filter((tag: any) => tag.key !== key));
@@ -132,7 +135,7 @@ const Layer: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          selectedKeys={menuActive}
           onClick={handleMenuCLick}
           items={MenuItems}
         />
@@ -176,6 +179,7 @@ const Layer: React.FC = () => {
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
+            overflow: "auto",
           }}
         >
           <Outlet></Outlet>
