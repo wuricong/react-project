@@ -1,8 +1,8 @@
 import "./index.less";
 import Background from "../../assets/bg1.jpg";
-import { Button, Input, message } from "antd";
-import { useNavigate } from "react-router-dom";
-import { createRef, useEffect, useState } from "react";
+import {Button, Input, message} from "antd";
+import {useNavigate} from "react-router-dom";
+import {createRef, useEffect, useState} from "react";
 
 const styleUrl = {
   backgroundImage: `url(${Background})`,
@@ -29,7 +29,7 @@ function Login() {
       return;
     }
     sessionStorage.setItem("password", "2260220325");
-    navigate("/home");
+    navigate("/dashboard");
   };
 
   const handleInputAccount = (val: string) => {
@@ -41,7 +41,7 @@ function Login() {
   };
 
   const handleKeyDown = (val: any) => {
-    const { code } = val;
+    const {code} = val;
     if (code === "Enter") {
       handleLogin();
     }
@@ -55,7 +55,7 @@ function Login() {
       {contextHolder}
       <div className="box" style={styleUrl}>
         <div className="login-form">
-          <i className="iconfont icon-denglu !text-6xl h-2/5 pt-12 mb-2 text-white" />
+          <i className="iconfont icon-denglu !text-6xl h-2/5 pt-12 mb-2 text-white"/>
           <div className="row">
             <span>账号:</span>
             <Input
