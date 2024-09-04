@@ -1,6 +1,6 @@
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./counterSlice.js";
-import { Button } from "antd";
+import {useSelector, useDispatch} from "react-redux";
+import {increment, decrement} from "./counterSlice.ts";
+import {Button} from "antd";
 
 export default function Counter() {
   const count = useSelector((state: any) => {

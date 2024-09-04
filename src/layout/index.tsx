@@ -8,6 +8,10 @@ import {MenuItems} from "./menu";
 import {headerStyle} from "./style";
 import {SettingDropdown} from "./components/dropdown";
 import {Pifu} from "@/assets/svg";
+import Dark from '@/assets/svg/Dark'
+import White from "@/assets/svg/White";
+import {useDispatch, useSelector} from "react-redux";
+import {changeModel} from '@/store/viewModel'
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -21,6 +25,10 @@ const Layer: React.FC = () => {
   ]);
   const [activeKey, setActiveKey] = useState("1");
   const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
+  const dispatch = useDispatch()
+  const model = useSelector((state: any) => {
+    return state.viewModel.status
+  })
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -129,6 +137,11 @@ const Layer: React.FC = () => {
     }
     setTags(tags.filter((tag: any) => tag.key !== key));
   };
+
+  const handleChangeModel = () => {
+    const str = model === 'dark' ? 'white' : 'dark'
+    dispatch(changeModel(str))
+  }
   return (
     <Layout style={{height: "100%"}}>
       <Sider
@@ -164,6 +177,10 @@ const Layer: React.FC = () => {
             <Breadcrumb items={handleBreadcrumb()}/>
           </div>
           <div className="flex">
+            <div onClick={handleChangeModel} className='mr-6 relative'>
+              <Dark model={model}/>
+              <White model={model}/>
+            </div>
             <Pifu/>
             <SettingDropdown handleCloseLogin={handleCloseLogin}/>
           </div>
