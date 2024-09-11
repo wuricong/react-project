@@ -3,7 +3,6 @@ import Dialog from "../../components/dialog";
 import MyComponent from "../../components/class";
 import { useState } from "react";
 import "./index.less";
-// import http from "@/service";
 
 export default function Home() {
   const [visible, setVisible] = useState(false);

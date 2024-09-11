@@ -1,34 +1,34 @@
-import React, {useEffect, useState} from "react";
-import {DoubleLeftOutlined} from "@ant-design/icons";
-import {Layout, Menu, theme, Modal, Breadcrumb, Tabs} from "antd";
-import {useNavigate, Outlet} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { DoubleLeftOutlined } from "@ant-design/icons";
+import { Layout, Menu, theme, Modal, Breadcrumb, Tabs } from "antd";
+import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
-import {MenuItems} from "./menu";
-import {headerStyle} from "./style";
-import {SettingDropdown} from "./components/dropdown";
-import {Pifu} from "@/assets/svg";
-import Dark from '@/assets/svg/Dark'
+import { MenuItems } from "./menu";
+import { headerStyle } from "./style";
+import { SettingDropdown } from "./components/dropdown";
+import { Pifu } from "@/assets/svg";
+import Dark from "@/assets/svg/Dark";
 import White from "@/assets/svg/White";
-import {useDispatch, useSelector} from "react-redux";
-import {changeModel} from '@/store/viewModel'
+import { useDispatch, useSelector } from "react-redux";
+import { changeModel } from "@/store/viewModel";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
-  const {Header, Sider, Content} = Layout;
+  const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
   const [menuActive, setMenuActive] = useState(["1"]);
-  const [menuName, setMenuName] = useState([{label: "首页"}]); //面包屑
+  const [menuName, setMenuName] = useState([{ label: "首页" }]); //面包屑
   const [tags, setTags] = useState<any>([
-    {...MenuItems[0], closeIcon: false},
+    { ...MenuItems[0], closeIcon: false },
   ]);
   const [activeKey, setActiveKey] = useState("1");
   const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const model = useSelector((state: any) => {
-    return state.viewModel.status
-  })
+    return state.viewModel.status;
+  });
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -36,7 +36,7 @@ const Layer: React.FC = () => {
     }
   }, []);
   const {
-    token: {colorBgContainer, borderRadiusLG},
+    token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   // @ts-ignore
@@ -60,7 +60,7 @@ const Layer: React.FC = () => {
       if (len.length - 1 === i) {
         const currentItem = menus.find((menu: any) => menu.key === kl);
         historyItem.push(currentItem);
-        return {currentItem, historyItem};
+        return { currentItem, historyItem };
       }
       const parent = menus.find((menu: any) => menu.key === len[i]);
       historyItem.push(parent);
@@ -73,7 +73,7 @@ const Layer: React.FC = () => {
   }
 
   const handleMenuCLick = (val: any) => {
-    const {currentItem, historyItem} = getCurrentPath(MenuItems, val.key);
+    const { currentItem, historyItem } = getCurrentPath(MenuItems, val.key);
     const result = tags.find((tag: any) => tag.key === currentItem.key);
     console.log("historyItem", currentItem, historyItem);
     // 添加新tab
@@ -111,12 +111,12 @@ const Layer: React.FC = () => {
           ),
         };
       }
-      return {title: menu.label};
+      return { title: menu.label };
     });
   };
 
   const handleTagClick = (key: string) => {
-    const {historyItem} = getCurrentPath(MenuItems, key);
+    const { historyItem } = getCurrentPath(MenuItems, key);
     const path = tags.find((tag: any) => tag.key === key)?.path;
     setMenuName(historyItem);
     setActiveKey(key);
@@ -131,26 +131,27 @@ const Layer: React.FC = () => {
       const index = tags.findIndex((tag: any) => tag.key === key) - 1;
       setActiveKey(tags[index]?.key || "1");
       setMenuActive(tags[index]?.key || "1");
-      const {historyItem} = getCurrentPath(MenuItems, tags[index]?.key);
+      const { historyItem } = getCurrentPath(MenuItems, tags[index]?.key);
       setMenuName(historyItem);
       navigate(tags[index]?.path);
     }
     setTags(tags.filter((tag: any) => tag.key !== key));
   };
 
+  //深色模式切换
   const handleChangeModel = () => {
-    const str = model === 'dark' ? 'white' : 'dark'
-    dispatch(changeModel(str))
-  }
+    const str = model === "dark" ? "white" : "dark";
+    dispatch(changeModel(str));
+  };
   return (
-    <Layout style={{height: "100%"}}>
+    <Layout style={{ height: "100%" }}>
       <Sider
         className="h-full overflow-y-scroll relative"
         trigger={null}
         collapsible
         collapsed={collapsed}
       >
-        <img className="demo-logo-vertical" src={imgUrl}/>
+        <img className="demo-logo-vertical" src={imgUrl} />
         <Menu
           theme="dark"
           mode="inline"
@@ -170,19 +171,19 @@ const Layer: React.FC = () => {
       </Sider>
       <Layout>
         <Header
-          style={{padding: 0, background: colorBgContainer, ...headerStyle}}
+          style={{ padding: 0, background: colorBgContainer, ...headerStyle }}
           className="flex justify-between items-center"
         >
           <div className="flex items-center ml-2">
-            <Breadcrumb items={handleBreadcrumb()}/>
+            <Breadcrumb items={handleBreadcrumb()} />
           </div>
           <div className="flex">
-            <div onClick={handleChangeModel} className='mr-6 relative'>
-              <Dark model={model}/>
-              <White model={model}/>
+            <div onClick={handleChangeModel} className="mr-6 relative">
+              <Dark model={model} />
+              <White model={model} />
             </div>
-            <Pifu/>
-            <SettingDropdown handleCloseLogin={handleCloseLogin}/>
+            <Pifu />
+            <SettingDropdown handleCloseLogin={handleCloseLogin} />
           </div>
         </Header>
         <Tabs

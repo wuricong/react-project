@@ -1,5 +1,5 @@
 import { Input } from "antd";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Counter from "../../features/counter/Counter";
 
 const list = [
@@ -14,6 +14,12 @@ const list = [
 ];
 
 function Throttle() {
+  useEffect(() => {
+    console.log(11);
+    return () => {
+      console.log("页面离开");
+    };
+  }, []);
   useLayoutEffect(() => {
     console.log(111);
   }, []);

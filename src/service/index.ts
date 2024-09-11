@@ -18,7 +18,7 @@ http.interceptors.request.use((req) => {
 http.interceptors.response.use((res) => {
   const { status } = res;
   if (status === 404) {
-    message.error("请求错误");
+    message.error("找不到资源");
   }
   return res;
 });

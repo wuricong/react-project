@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "@ant-design/charts";
 import DemoBar from "./components/Bar";
+import { HostInfo } from "./components/HostInfo";
+import { requestApi } from "@/service";
+import Time from "./components/Time";
 
 const Page: React.FC = () => {
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    requestApi("/getInfoHost").then((res) => {
+      console.log("res", res);
+    });
+    setList([]);
+  }, []);
   const data = [
     { year: "1991", value: 3 },
     { year: "1992", value: 4 },
@@ -24,8 +35,12 @@ const Page: React.FC = () => {
 
   return (
     <>
-      <Line {...config} />
-      <DemoBar />
+      <Time />
+      <HostInfo list={list} />
+      <div className="flex">
+        <Line {...config} />
+        <DemoBar />
+      </div>
     </>
   );
 };
