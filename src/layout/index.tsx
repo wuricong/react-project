@@ -5,7 +5,6 @@ import { useNavigate, Outlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
 import { MenuItems } from "./menu";
-import { headerStyle } from "./style";
 import { SettingDropdown } from "./components/dropdown";
 import { Pifu } from "@/assets/svg";
 import Dark from "@/assets/svg/Dark";
@@ -29,6 +28,7 @@ const Layer: React.FC = () => {
   const model = useSelector((state: any) => {
     return state.viewModel.status;
   });
+  console.log("model", model);
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -38,18 +38,6 @@ const Layer: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
-  // @ts-ignore
-  function handleDebugger() {
-    let startTime = performance.now();
-    // 设置断点
-    // debugger;
-    let endTime = performance.now();
-    // 设置一个阈值，例如100毫秒
-    if (endTime - startTime > 100) {
-      window.location.href = "about:blank";
-    }
-  }
 
   function getCurrentPath(menus: any, kl: string) {
     const len = kl.split("-");
@@ -138,10 +126,22 @@ const Layer: React.FC = () => {
     setTags(tags.filter((tag: any) => tag.key !== key));
   };
 
+  const headerStyle: React.CSSProperties = {
+    padding: 0,
+    transition: "all .3s",
+    backgroundColor: `${model === "dark" ? "#0d1729" : "white"}`,
+    height: 46,
+  };
+
   //深色模式切换
   const handleChangeModel = () => {
     const str = model === "dark" ? "white" : "dark";
     dispatch(changeModel(str));
+    if (model === "dark") {
+      document.body.className = "theme-light";
+    } else {
+      document.body.className = "theme-dark";
+    }
   };
   return (
     <Layout style={{ height: "100%" }}>
@@ -171,11 +171,14 @@ const Layer: React.FC = () => {
       </Sider>
       <Layout>
         <Header
-          style={{ padding: 0, background: colorBgContainer, ...headerStyle }}
+          style={{
+            background: colorBgContainer,
+            ...headerStyle,
+          }}
           className="flex justify-between items-center"
         >
           <div className="flex items-center ml-2">
-            <Breadcrumb items={handleBreadcrumb()} />
+            <Breadcrumb style={{ color: "red" }} items={handleBreadcrumb()} />
           </div>
           <div className="flex">
             <div onClick={handleChangeModel} className="mr-6 relative">

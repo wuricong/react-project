@@ -1,0 +1,31 @@
+@primary-color: white;
+@bg-color: #0a1524;
+
+
+.theme-dark {
+  .currentTheme()
+}
+
+.theme-light {
+  //color: black;
+}
+
+
+.currentTheme(@color: @primary-color,@bg-color: @bg-color) {
+
+  svg {
+    color: @color !important;;
+  }
+
+  .ant-breadcrumb-link {
+    color: @color !important;
+  }
+
+  .ant-layout-header, .ant-tabs-tab {
+    background-color: @bg-color !important;
+
+    span {
+      color: @color;
+    }
+  }
+}
