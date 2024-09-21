@@ -31,8 +31,8 @@ http.interceptors.response.use((res) => {
  * */
 export function requestApi(
   url: string,
-  method?: reqMethods,
   config?: AxiosRequestConfig,
+  method?: reqMethods,
 ) {
   return new Promise(async (resolve, reject) => {
     try {

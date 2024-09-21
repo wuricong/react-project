@@ -2,6 +2,7 @@ import { Space, Table, Button } from "antd";
 import Dialog from "@/page/components/table/Dialog";
 import { requestApi } from "@/service";
 import React from "react";
+import MoneyTable from "./components/money-table";
 
 export default function () {
   let dialogRef: any = React.createRef();
@@ -57,9 +58,10 @@ export default function () {
   ];
   return (
     <>
-      <div className="title">基础表格</div>
+      <div className="font-bold mb-4">基础表格</div>
       <Table dataSource={dataSource} columns={columns} />
       <Dialog onRef={dialogRef} />
+      <MoneyTable />
     </>
   );
 }
