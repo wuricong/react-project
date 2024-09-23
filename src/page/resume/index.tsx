@@ -1,6 +1,7 @@
 import "./index.less";
 import Personal from "./components/Personal";
 import InfoRow from "@/page/resume/components/info-row";
+import { Tag } from "antd";
 
 export default function ResumeTemplate() {
   return (
@@ -24,9 +25,9 @@ function Title() {
   return (
     <div>
       <div className="line-row text-white bg-slate-400 flex items-center">
-        <i className="iconfont icon-denglu"></i>
+        <i className="iconfont icon-denglu mx-4"></i>
         <div className="left"></div>
-        <div className="ml-1.5">个人简历</div>
+        <div className="ml-2">个人简历</div>
       </div>
     </div>
   );
@@ -35,17 +36,17 @@ function Title() {
 function Company() {
   return (
     <div>
-      <div className="text-base font-bold text-center">
+      <div className="text-base font-bold text-center pb-2">
         江苏百盛科技有限公司
       </div>
-      <p className="text-sm">
+      <p className="text-sm mb-2 px-4">
         参与 Web
         应用的开发，与服务端开发人员进行应用及系统整合，调试网站页面在不同浏览器下的兼容性，配合项目经理和设计负责对界面进行实现和优化等。
       </p>
-      <div className="text-base font-bold text-center">
+      <div className="text-base font-bold text-center pb-2">
         上海宝虎科技有限公司
       </div>
-      <p>
+      <p className="text-sm px-4">
         负责公司前端项目的开发和维护，设计编写可复用的页面组件，对产品的原型及UI进行逻辑梳理，
         对项目可扩展性分析以及配合服务端进行接口联调，参与项目后续版本的迭代与优化。
       </p>
@@ -55,8 +56,9 @@ function Company() {
 
 function MyTechnology() {
   return (
-    <div>
-      <ul className="font-bold pl-2">
+    <>
+      <Tag color="#111a7b">标签</Tag>
+      <ul className="font-bold pl-8 list-disc">
         <li>熟练掌握ES6语法，对Promise，原型，闭包有深度了解</li>
         <li>熟练使用Vue2/3及其工具链进行需求编写，功能实现</li>
         <li>熟练使用Uni-app，Taro结合UI组件库进行跨端开发</li>
@@ -68,20 +70,22 @@ function MyTechnology() {
         <li>熟悉Python语言，并使用其制作脚本与Node进行交互</li>
         {/*<li>对大模型有一定的了解，使用GPT-4解决日常工作中的一些问题</li>*/}
       </ul>
-    </div>
+    </>
   );
 }
 
 function Project() {
   return (
     <div>
-      <div className="text-base font-bold">一、eSource前后台系统</div>
+      <div className="text-base font-bold pb-1">一、eSource前后台系统</div>
       <p className="pl-2">
         <p className="text-sm font-bold">
           项目描述：该系统是服务于医药公司临床试验的数据可视化大型SASS应用，实现研究者信息采集，
           受试者数据上报，系统中包含访视，质疑，核查，稽查轨迹,
-          报表中心等多个模块。 技术栈：Webpack + Vue3 + Element + Axios +
-          Typescript
+          报表中心等多个模块。
+        </p>
+        <p className="text-sm font-bold py-1">
+          技术栈：Webpack + Vue3 + Element + Axios + Typescript
         </p>
         <p className="text-sm">
           项目职责：
