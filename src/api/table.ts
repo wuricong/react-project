@@ -11,3 +11,8 @@ export function getMoneyTable() {
 export function updateMoneyList() {
   return requestApi("/updateMoneyList");
 }
+
+//获取农历信息
+export function getCalendar() {
+  return requestApi("/calendar");
+}

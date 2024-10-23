@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Button, Input } from "antd";
 import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Counter from "../../features/counter/Counter";
 
@@ -13,7 +13,37 @@ const list = [
   "title7",
 ];
 
+function TimeCount(props: any) {
+  console.log("props", props);
+  const { timeCount = 60, title = "开始计时" } = props;
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [second, setSecond] = useState(timeCount);
+
+  const handleTimeing = () => {
+    setIsDisabled(true);
+    const timer = setInterval(() => {
+      setSecond((val: any) => {
+        if (val <= 1) {
+          setIsDisabled(false);
+          setSecond(timeCount);
+          clearInterval(timer);
+        }
+        return val - 1;
+      });
+    }, 1000);
+  };
+  return (
+    <>
+      <Button disabled={isDisabled} type="primary" onClick={handleTimeing}>
+        {isDisabled ? second : title}
+      </Button>
+    </>
+  );
+}
+
 function Throttle() {
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [second, setSecond] = useState(60);
   useEffect(() => {
     console.log(11);
     return () => {
@@ -38,6 +68,25 @@ function Throttle() {
       timer = 0;
     }, 500);
   };
+
+  useEffect(() => {
+    if (second < 0) {
+      setIsDisabled(false);
+      setSecond(60);
+    }
+  }, [second]);
+
+  const handleTimeing = () => {
+    setIsDisabled(true);
+    const timer = setInterval(() => {
+      setSecond((val) => {
+        if (val === 0) {
+          clearInterval(timer);
+        }
+        return val - 1;
+      });
+    }, 1000);
+  };
   return (
     <>
       <div>{count}</div>
@@ -50,6 +99,18 @@ function Throttle() {
       {searchList.map((item, index) => (
         <div key={index}>{item}</div>
       ))}
+      <div className="mt-2">
+        <div>倒计时</div>
+        <Button
+          className="mr-2"
+          disabled={isDisabled}
+          type="primary"
+          onClick={handleTimeing}
+        >
+          {isDisabled ? second : "开始记时"}
+        </Button>
+        <TimeCount timeCount={5} />
+      </div>
     </>
   );
 }

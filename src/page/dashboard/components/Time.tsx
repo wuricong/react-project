@@ -2,10 +2,44 @@ import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 import { Popover } from "antd";
 import ShowTime from "@/page/dashboard/components/ShowTime";
+import { getPrevMonthEndDay } from "@/utils";
+
+function getSteps(step: any, direction: string) {
+  let arr: [] = [];
+  console.log(1, step, direction);
+  return arr;
+}
 
 function Backlog() {
   const [state, setState] = useState<any>();
+
+  const handleDateFormat = () => {
+    const prevMonthDay = Number(getPrevMonthEndDay());
+    const curDate = dayjs().format("YYYY-MM-DD");
+    const startData = dayjs(curDate).startOf("month").format("YYYY-MM-DD");
+    const endData = dayjs(curDate).endOf("month").format("YYYY-MM-DD");
+    const weekStartDay = dayjs(startData).day();
+    const weekEndDay = dayjs(endData).day();
+    getSteps(weekStartDay, "pos");
+    console.log("weekStartDay", weekStartDay, weekEndDay);
+    return {
+      startData,
+      endData,
+      weekEndDay,
+      weekStartDay,
+      prevMonthDay,
+    };
+  };
+
   useEffect(() => {
+    const days = [];
+    const date = handleDateFormat();
+    let count = Number(date.endData.split("-").at(-1));
+    do {
+      days.push(count);
+      count--;
+    } while (count);
+    console.log(days);
     setState([
       [1, 2, 3, 4, 5, 6, 7],
       [8, 9, 10, 11, 12, 13, 14],

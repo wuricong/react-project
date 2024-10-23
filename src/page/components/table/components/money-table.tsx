@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Table } from "antd";
-import { getMoneyTable } from "@/api/table";
+import { Table, Button } from "antd";
+import { getMoneyTable, updateMoneyList } from "@/api/table";
 
 export default function MoneyTable() {
   const [list, setList] = useState([]);
@@ -32,9 +32,22 @@ export default function MoneyTable() {
     { title: "产值", dataIndex: "wealth", key: "wealth" },
     { title: "来源", dataIndex: "source", key: "source" },
   ];
+
+  const handleUpdate = () => {
+    updateMoneyList().then((res) => {
+      console.log("res", res);
+    });
+  };
   return (
     <>
-      <div className="font-bold mb-4">福布斯排行榜</div>
+      <div className="flex items-center justify-between mb-4">
+        <div className="font-bold">福布斯排行榜</div>
+        <div>
+          <Button color="primary" variant="outlined" onClick={handleUpdate}>
+            刷新
+          </Button>
+        </div>
+      </div>
       <Table
         locale={{ emptyText: "暂无数据" }}
         rowKey="ranking"
