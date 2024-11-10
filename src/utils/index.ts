@@ -24,8 +24,21 @@ export function getImgBase64Data(url: string, cb: Function) {
  * 获取上一月份的最后一天
  * @param month 传入的月份
  * */
-
 export function getPrevMonthEndDay(month = null) {
   const _month = month ? month : dayjs().format("MM");
   return dayjs(_month).add(-1, "month").endOf("month").format("DD");
+}
+
+/**
+ * 获取天数间隔
+ * @param num 传入的月份
+ * @param sort 排序方式
+ * */
+export function getDaysMonth(num: number, sort: number) {
+  let arr = [];
+  for (let i = 0; i < num; i++) {
+    arr.push(i + 1);
+  }
+  console.log("num, sort", num, sort);
+  return arr;
 }

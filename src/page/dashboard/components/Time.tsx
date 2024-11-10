@@ -1,8 +1,10 @@
+import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 import { Popover } from "antd";
 import ShowTime from "@/page/dashboard/components/ShowTime";
-import { getPrevMonthEndDay } from "@/utils";
+import { getDaysMonth, getPrevMonthEndDay } from "@/utils";
+import { DateType } from "@/types/public.ts";
 
 function getSteps(step: any, direction: string) {
   let arr: [] = [];
@@ -33,13 +35,16 @@ function Backlog() {
 
   useEffect(() => {
     const days = [];
-    const date = handleDateFormat();
-    let count = Number(date.endData.split("-").at(-1));
+    const date: any = handleDateFormat();
+    let count = Number(date.endData?.split("-").at(-1));
     do {
       days.push(count);
       count--;
     } while (count);
-    console.log(days);
+    const arr = getDaysMonth(date.weekStartDay, 1);
+    const arr1 = getDaysMonth(date.weekEndDay, 1);
+    console.log("arr", arr, arr1, date);
+    console.log(1111, days, date);
     setState([
       [1, 2, 3, 4, 5, 6, 7],
       [8, 9, 10, 11, 12, 13, 14],

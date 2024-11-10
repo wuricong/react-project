@@ -178,7 +178,7 @@ const Layer: React.FC = () => {
           className="flex justify-between items-center"
         >
           <div className="flex items-center ml-2">
-            <Breadcrumb style={{ color: "red" }} items={handleBreadcrumb()} />
+            <Breadcrumb style={{ color: "black" }} items={handleBreadcrumb()} />
           </div>
           <div className="flex">
             <div onClick={handleChangeModel} className="mr-6 relative">

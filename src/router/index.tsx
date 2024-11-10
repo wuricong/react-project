@@ -13,6 +13,7 @@ import Dashboard from "../page/dashboard/index";
 import Table from "../page/components/table/index";
 import Dialog from "../page/components/dialog/index";
 import Form from "@/page/components/form/index";
+import List from "@/page/components/list/index.tsx";
 
 function handleRouterPath() {
   const pages = import.meta.glob([
@@ -61,9 +62,10 @@ export const routes = [
       {
         path: "components",
         children: [
-          { path: "list", element: <Table /> },
+          { path: "list", element: <List /> },
           { path: "dialog", element: <Dialog /> },
           { path: "form", element: <Form /> },
+          { path: "table", element: <Table /> },
         ],
       },
     ],
