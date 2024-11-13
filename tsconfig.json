@@ -20,7 +20,8 @@
     "strict": true,
     //未使用的变量
     "noUnusedLocals": false,
-    "noUnusedParameters": true,
+    //未使用的形参
+    "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {

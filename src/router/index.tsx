@@ -14,6 +14,7 @@ import Table from "../page/components/table/index";
 import Dialog from "../page/components/dialog/index";
 import Form from "@/page/components/form/index";
 import List from "@/page/components/list/index.tsx";
+import Rich from "@/page/components/rich/index.tsx";
 
 function handleRouterPath() {
   const pages = import.meta.glob([
@@ -64,6 +65,7 @@ export const routes = [
         children: [
           { path: "list", element: <List /> },
           { path: "dialog", element: <Dialog /> },
+          { path: "rich", element: <Rich /> },
           { path: "form", element: <Form /> },
           { path: "table", element: <Table /> },
         ],

@@ -11,6 +11,7 @@ import Dark from "@/assets/svg/Dark";
 import White from "@/assets/svg/White";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModel } from "@/store/viewModel";
+import { changeActive } from "@/store/tabs.ts";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -22,13 +23,18 @@ const Layer: React.FC = () => {
   const [tags, setTags] = useState<any>([
     { ...MenuItems[0], closeIcon: false },
   ]);
-  const [activeKey, setActiveKey] = useState("1");
   const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
   const dispatch = useDispatch();
   const model = useSelector((state: any) => {
     return state.viewModel.status;
   });
-  console.log("model", model);
+
+  const activeKey = useSelector((state: any) => {
+    return state.tabs.activeKey;
+  });
+
+  console.log("activeKey", activeKey);
+
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -72,7 +78,7 @@ const Layer: React.FC = () => {
     if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
       setMenuActive([currentItem.key]);
       setMenuName(historyItem);
-      setActiveKey(currentItem.key);
+      dispatch(changeActive(currentItem.key));
       navigate(currentItem.path);
       setCurrentSelectItem(currentItem);
     }
@@ -107,7 +113,7 @@ const Layer: React.FC = () => {
     const { historyItem } = getCurrentPath(MenuItems, key);
     const path = tags.find((tag: any) => tag.key === key)?.path;
     setMenuName(historyItem);
-    setActiveKey(key);
+    dispatch(changeActive(key));
     setMenuActive([key]);
     if (path) {
       navigate(path);
@@ -117,7 +123,7 @@ const Layer: React.FC = () => {
   const handleRemove = (key: any) => {
     if (activeKey === key) {
       const index = tags.findIndex((tag: any) => tag.key === key) - 1;
-      setActiveKey(tags[index]?.key || "1");
+      dispatch(changeActive(tags[index]?.key || "1"));
       setMenuActive(tags[index]?.key || "1");
       const { historyItem } = getCurrentPath(MenuItems, tags[index]?.key);
       setMenuName(historyItem);

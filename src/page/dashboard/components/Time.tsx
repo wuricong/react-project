@@ -9,7 +9,7 @@ import { getDaysMonth, getPrevMonthEndDay } from "@/utils";
 function Backlog() {
   const [state, setState] = useState<any>();
 
-  const handleDateFormat = () => {
+  const handleDateFormat = (date: string = "") => {
     const prevMonthDay = Number(getPrevMonthEndDay());
     const curDate = dayjs().format("YYYY-MM-DD");
     const startData = dayjs(curDate).startOf("month").format("YYYY-MM-DD");
