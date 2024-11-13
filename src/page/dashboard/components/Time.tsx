@@ -1,16 +1,10 @@
 import type { Dayjs } from "dayjs";
+import { DateType } from "@/types/public.ts";
 import dayjs from "dayjs";
 import { useState, useEffect } from "react";
-import { Popover } from "antd";
+import { Button, Popover } from "antd";
 import ShowTime from "@/page/dashboard/components/ShowTime";
 import { getDaysMonth, getPrevMonthEndDay } from "@/utils";
-import { DateType } from "@/types/public.ts";
-
-function getSteps(step: any, direction: string) {
-  let arr: [] = [];
-  console.log(1, step, direction);
-  return arr;
-}
 
 function Backlog() {
   const [state, setState] = useState<any>();
@@ -22,43 +16,71 @@ function Backlog() {
     const endData = dayjs(curDate).endOf("month").format("YYYY-MM-DD");
     const weekStartDay = dayjs(startData).day();
     const weekEndDay = dayjs(endData).day();
-    getSteps(weekStartDay, "pos");
-    console.log("weekStartDay", weekStartDay, weekEndDay);
+    const prevMonthDays = dayjs().add(-1, "month").daysInMonth();
     return {
       startData,
       endData,
       weekEndDay,
       weekStartDay,
       prevMonthDay,
+      prevMonthDays,
     };
   };
 
-  useEffect(() => {
-    const days = [];
+  const loadMonth = () => {
+    const days: any = [];
     const date: any = handleDateFormat();
     let count = Number(date.endData?.split("-").at(-1));
     do {
-      days.push(count);
+      days.unshift(count);
       count--;
     } while (count);
-    const arr = getDaysMonth(date.weekStartDay, 1);
-    const arr1 = getDaysMonth(date.weekEndDay, 1);
-    console.log("arr", arr, arr1, date);
-    console.log(1111, days, date);
-    setState([
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-    ]);
+    const prevMonthList = getDaysMonth(date.weekStartDay, 1);
+    const nextMonthList = getDaysMonth(date.weekEndDay, 1);
+
+    if (prevMonthList.length) {
+      prevMonthList.forEach((item) => {
+        days.unshift(date.prevMonthDays - item);
+      });
+    }
+    if (nextMonthList.length) {
+      nextMonthList.forEach((item) => {
+        days.push(item);
+      });
+    }
+    setState(() => {
+      const list = [];
+      let i = 0;
+      while (i + 7 < days.length) {
+        list.push(days?.slice(i, i + 7));
+        i = i + 7;
+      }
+      return list;
+    });
+  };
+
+  useEffect(() => {
+    loadMonth();
   }, []);
 
   const handleMouseEnter = (e: any) => {
     console.log("e", e);
   };
+
+  const handleNextMonth = () => {};
+
+  const handlePrevMonth = () => {};
   return (
     <div className="backlog flex-1">
       <div>待办事项</div>
+      <div className="flex justify-between px-2 my-2">
+        <Button type="primary" onClick={handleNextMonth}>
+          下一月
+        </Button>
+        <Button type="primary" onClick={handlePrevMonth}>
+          上一月
+        </Button>
+      </div>
       <div>
         {state?.map((item: any, index: number) => (
           <div key={index} className="flex justify-between">
