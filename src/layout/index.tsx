@@ -18,22 +18,14 @@ const Layer: React.FC = () => {
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
-  const [menuActive, setMenuActive] = useState(["1"]);
   const [menuName, setMenuName] = useState([{ label: "首页" }]); //面包屑
   const [tags, setTags] = useState<any>([
     { ...MenuItems[0], closeIcon: false },
   ]);
-  const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
   const dispatch = useDispatch();
-  const model = useSelector((state: any) => {
-    return state.viewModel.status;
-  });
-
-  const activeKey = useSelector((state: any) => {
-    return state.tabs.activeKey;
-  });
-
-  console.log("activeKey", activeKey);
+  const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
+  const model = useSelector((state: any) => state.viewModel.status);
+  const { activeKey } = useSelector((state: any) => state.tabs);
 
   useEffect(() => {
     const token = sessionStorage.getItem("password");
@@ -76,7 +68,6 @@ const Layer: React.FC = () => {
     }
     // 防止点击相同标签时重复刷新
     if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
-      setMenuActive([currentItem.key]);
       setMenuName(historyItem);
       dispatch(changeActive(currentItem.key));
       navigate(currentItem.path);
@@ -114,7 +105,6 @@ const Layer: React.FC = () => {
     const path = tags.find((tag: any) => tag.key === key)?.path;
     setMenuName(historyItem);
     dispatch(changeActive(key));
-    setMenuActive([key]);
     if (path) {
       navigate(path);
     }
@@ -124,7 +114,6 @@ const Layer: React.FC = () => {
     if (activeKey === key) {
       const index = tags.findIndex((tag: any) => tag.key === key) - 1;
       dispatch(changeActive(tags[index]?.key || "1"));
-      setMenuActive(tags[index]?.key || "1");
       const { historyItem } = getCurrentPath(MenuItems, tags[index]?.key);
       setMenuName(historyItem);
       navigate(tags[index]?.path);
@@ -161,7 +150,7 @@ const Layer: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={menuActive}
+          selectedKeys={activeKey}
           onClick={handleMenuCLick}
           items={MenuItems}
         />

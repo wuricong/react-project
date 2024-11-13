@@ -1,5 +1,5 @@
 import { Form, Checkbox, Input, Button } from "antd";
-import DemoInput from "./components/Input";
+import DemoInput from "./components/demo-input";
 
 export default function () {
   type FieldType = {

@@ -1,10 +1,12 @@
 import { Input, DatePicker } from "antd";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 export default function DemoInput() {
   const [value, setValue] = useState<any>("");
   const [num, setNum] = useState<number>();
-  const [picker, setPicker] = useState();
+  const [emoji, setEmoji] = useState();
+  const [picker, setPicker]: any = useState();
   const handleInput = (e: any) => {
     setValue(e.target.value);
   };
@@ -13,6 +15,15 @@ export default function DemoInput() {
     const val = e.target.value.replace(/\D/g, "");
     setNum(val);
   };
+
+  const handleInputEmoji = (e: any) => {
+    setEmoji(e.target.value);
+  };
+
+  const handleSelectChange = (e: any) => {
+    setPicker(dayjs(e).format("YYYY-MM-DD"));
+  };
+
   return (
     <>
       <div className="my-2">
@@ -47,13 +58,13 @@ export default function DemoInput() {
         <Input
           className="w-60"
           placeholder="请输入😄"
-          value={num}
-          onChange={handleInputNum}
+          value={emoji}
+          onChange={handleInputEmoji}
         />
       </div>
       <div className="my-2">
         <div>日期选择框：</div>
-        <DatePicker />
+        <DatePicker onChange={handleSelectChange} />
       </div>
     </>
   );
