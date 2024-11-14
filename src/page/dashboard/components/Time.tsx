@@ -8,12 +8,13 @@ import { getDaysMonth, getPrevMonthEndDay } from "@/utils";
 
 function Backlog() {
   const [state, setState] = useState<any>();
+  const [curDate, setCurDate] = useState(dayjs().format("YYYY-MM-DD"));
 
   const handleDateFormat = (date: string = "") => {
+    const _curDate = date ? date : curDate;
     const prevMonthDay = Number(getPrevMonthEndDay());
-    const curDate = dayjs().format("YYYY-MM-DD");
-    const startData = dayjs(curDate).startOf("month").format("YYYY-MM-DD");
-    const endData = dayjs(curDate).endOf("month").format("YYYY-MM-DD");
+    const startData = dayjs(_curDate).startOf("month").format("YYYY-MM-DD");
+    const endData = dayjs(_curDate).endOf("month").format("YYYY-MM-DD");
     const weekStartDay = dayjs(startData).day();
     const weekEndDay = dayjs(endData).day();
     const prevMonthDays = dayjs().add(-1, "month").daysInMonth();
@@ -27,9 +28,9 @@ function Backlog() {
     };
   };
 
-  const loadMonth = () => {
+  const loadMonth = (d: any = null) => {
     const days: any = [];
-    const date: any = handleDateFormat();
+    const date: any = handleDateFormat(d);
     let count = Number(date.endData?.split("-").at(-1));
     do {
       days.unshift(count);
@@ -67,16 +68,25 @@ function Backlog() {
     console.log("e", e);
   };
 
-  const handleNextMonth = () => {};
+  const handleNextMonth = () => {
+    const d = dayjs(curDate).add(1, "month").format("YYYY-MM-DD");
+    setCurDate(d);
+    loadMonth(d);
+  };
 
-  const handlePrevMonth = () => {};
+  const handlePrevMonth = () => {
+    const d = dayjs(curDate).add(-1, "month").format("YYYY-MM-DD");
+    setCurDate(d);
+    loadMonth(d);
+  };
   return (
     <div className="backlog flex-1">
       <div>待办事项</div>
-      <div className="flex justify-between px-2 my-2">
+      <div className="flex items-center justify-between px-2 my-2">
         <Button type="primary" onClick={handleNextMonth}>
           下一月
         </Button>
+        <div>{curDate}</div>
         <Button type="primary" onClick={handlePrevMonth}>
           上一月
         </Button>
