@@ -28,6 +28,7 @@ const DemoBar: React.FC = () => {
     paddingRight: 80,
     style: {
       maxWidth: 25,
+      fill: "#9694FF",
     },
     markBackground: {
       label: {

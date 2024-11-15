@@ -98,7 +98,8 @@ function Backlog() {
               <Popover key={i} content={<ShowTime text={itemA} />}>
                 <div
                   onMouseEnter={handleMouseEnter}
-                  className="m-1 h-12 flex-1 flex items-center justify-center bg-sky-500 rounded"
+                  className="m-1 h-12 flex-1 flex items-center justify-center rounded"
+                  style={{ backgroundColor: "#9694FF" }}
                 >
                   <div>{itemA}</div>
                 </div>

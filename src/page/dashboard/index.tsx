@@ -31,6 +31,7 @@ const Page: React.FC = () => {
     height: 400,
     xField: "year",
     yField: "value",
+    colorField: "#9694FF",
   };
 
   return (
