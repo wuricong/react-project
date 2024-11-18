@@ -12,18 +12,16 @@ function Backlog() {
 
   const handleDateFormat = (date: string = "") => {
     const _curDate = date ? date : curDate;
-    const prevMonthDay = Number(getPrevMonthEndDay());
-    const startData = dayjs(_curDate).startOf("month").format("YYYY-MM-DD");
-    const endData = dayjs(_curDate).endOf("month").format("YYYY-MM-DD");
-    const weekStartDay = dayjs(startData).day();
+    const startData = dayjs(_curDate).startOf("month").format("YYYY-MM-DD"); //获取每月的一号
+    const endData = dayjs(_curDate).endOf("month").format("YYYY-MM-DD"); //获取每月的月末号
+    const weekStartDay = dayjs(startData).day(); // 获取星期几
     const weekEndDay = dayjs(endData).day();
-    const prevMonthDays = dayjs().add(-1, "month").daysInMonth();
+    const prevMonthDays = dayjs(endData).add(-1, "month").daysInMonth(); // 获取上一个月的总天数
     return {
       startData,
       endData,
       weekEndDay,
       weekStartDay,
-      prevMonthDay,
       prevMonthDays,
     };
   };
@@ -36,18 +34,17 @@ function Backlog() {
       days.unshift(count);
       count--;
     } while (count);
-    const prevMonthList = getDaysMonth(date.weekStartDay, 1);
-    const nextMonthList = getDaysMonth(date.weekEndDay, 1);
+    const prevMonthList = getDaysMonth(date.weekStartDay);
+    const nextMonthList = getDaysMonth(date.weekEndDay);
 
     if (prevMonthList.length) {
-      prevMonthList.forEach((item) => {
-        days.unshift(date.prevMonthDays - item);
-      });
+      prevMonthList.forEach((item) => days.unshift(date.prevMonthDays - item));
     }
+
     if (nextMonthList.length) {
-      nextMonthList.forEach((item) => {
-        days.push(item);
-      });
+      for (let i = 1; i <= 7 - nextMonthList.length; i++) {
+        days.push(i);
+      }
     }
     setState(() => {
       const list = [];
@@ -83,12 +80,12 @@ function Backlog() {
     <div className="backlog flex-1">
       <div>待办事项</div>
       <div className="flex items-center justify-between px-2 my-2">
-        <Button type="primary" onClick={handleNextMonth}>
-          下一月
-        </Button>
-        <div>{curDate}</div>
         <Button type="primary" onClick={handlePrevMonth}>
           上一月
+        </Button>
+        <div>{curDate}</div>
+        <Button type="primary" onClick={handleNextMonth}>
+          下一月
         </Button>
       </div>
       <div>

@@ -17,6 +17,10 @@ function Login() {
   const input: any = createRef();
   // 初次挂载页面密码框聚焦
   useEffect(() => {
+    const token = sessionStorage.getItem("password");
+    if (token) {
+      navigate("/dashboard");
+    }
     input.current.focus();
   }, []);
   const handleLogin = () => {
@@ -48,7 +52,8 @@ function Login() {
   };
 
   const pushAccountInfo = () => {
-    navigate("/resume");
+    messageApi.warning("开发中");
+    // navigate("/resume");
   };
   return (
     <>

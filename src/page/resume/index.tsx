@@ -57,7 +57,12 @@ function Company() {
 function MyTechnology() {
   return (
     <>
-      <Tag color="#111a7b">标签</Tag>
+      <div className="pl-4">
+        <Tag color="#111a7b">electron</Tag>
+        <Tag color="#111a7b">react</Tag>
+        <Tag color="#111a7b">vue</Tag>
+        <Tag color="#111a7b">node</Tag>
+      </div>
       <ul className="font-bold pl-8 list-disc">
         <li>熟练掌握ES6语法，对Promise，原型，闭包有深度了解</li>
         <li>熟练使用Vue2/3及其工具链进行需求编写，功能实现</li>

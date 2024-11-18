@@ -30,15 +30,13 @@ export function getPrevMonthEndDay(month = null) {
 }
 
 /**
- * 获取天数间隔
- * @param num 传入的月份
- * @param sort 排序方式
+ * 数字转数组
+ * @param num 传入的数字
  * */
-export function getDaysMonth(num: number, sort: number) {
+export function getDaysMonth(num: number) {
   let arr = [];
   for (let i = 0; i < num; i++) {
-    arr.push(i + 1);
+    arr.push(i);
   }
-  console.log("num, sort", num, sort);
   return arr;
 }
