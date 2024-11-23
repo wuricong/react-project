@@ -4,7 +4,8 @@ import dayjs from "dayjs";
 import { useState, useEffect } from "react";
 import { Button, Popover } from "antd";
 import ShowTime from "@/page/dashboard/components/ShowTime";
-import { getDaysMonth, getPrevMonthEndDay } from "@/utils";
+import fillZero, { getDaysMonth } from "@/utils";
+import Nail from "@/assets/svg/nail.tsx";
 
 function Backlog() {
   const [state, setState] = useState<any>();
@@ -29,21 +30,27 @@ function Backlog() {
   const loadMonth = (d: any = null) => {
     const days: any = [];
     const date: any = handleDateFormat(d);
+    const _date = dayjs(date.startData).format("YYYY-MM");
     let count = Number(date.endData?.split("-").at(-1));
     do {
-      days.unshift(count);
+      days.unshift({ date: count, _date: `${_date}-${count}` });
       count--;
     } while (count);
     const prevMonthList = getDaysMonth(date.weekStartDay);
     const nextMonthList = getDaysMonth(date.weekEndDay);
 
     if (prevMonthList.length) {
-      prevMonthList.forEach((item) => days.unshift(date.prevMonthDays - item));
+      prevMonthList.forEach((item) =>
+        days.unshift({
+          date: date.prevMonthDays - item,
+          _date: `${_date}-${date.prevMonthDays - item}`,
+        }),
+      );
     }
 
     if (nextMonthList.length) {
       for (let i = 1; i <= 7 - nextMonthList.length; i++) {
-        days.push(i);
+        days.push({ date: fillZero(i), _date: `${_date}-${_date}-${i}` });
       }
     }
     setState(() => {
@@ -92,13 +99,19 @@ function Backlog() {
         {state?.map((item: any, index: number) => (
           <div key={index} className="flex justify-between">
             {item.map((itemA: any, i: number) => (
-              <Popover key={i} content={<ShowTime text={itemA} />}>
+              <Popover key={i} content={<ShowTime text={itemA._date} />}>
                 <div
                   onMouseEnter={handleMouseEnter}
-                  className="m-1 h-12 flex-1 flex items-center justify-center rounded"
+                  className="m-1 h-12 flex-1 flex items-center justify-center rounded relative"
                   style={{ backgroundColor: "#9694FF" }}
                 >
-                  <div>{itemA}</div>
+                  {dayjs().format("YYYY-MM-DD") === itemA._date && (
+                    <div className="absolute top-1 right-1">
+                      <Nail />
+                    </div>
+                  )}
+                  <div></div>
+                  <div>{itemA.date}</div>
                 </div>
               </Popover>
             ))}

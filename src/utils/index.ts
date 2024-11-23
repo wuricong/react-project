@@ -40,3 +40,12 @@ export function getDaysMonth(num: number) {
   }
   return arr;
 }
+
+/**
+ * 补零
+ * @params val
+ * */
+
+export default function fillZero(val: number | string) {
+  return Number(val) > 0 ? `0${val}` : val;
+}

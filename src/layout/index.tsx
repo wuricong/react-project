@@ -12,21 +12,18 @@ import White from "@/assets/svg/White";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModel } from "@/store/viewModel";
 import { changeActive } from "@/store/tabs.ts";
+import { changeSelectMenu, changeTags } from "@/store/userInfo.ts";
 
 const Layer: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
   const navigate = useNavigate();
-  const [menuName, setMenuName] = useState([{ label: "首页" }]); //面包屑
-  const [tags, setTags] = useState<any>([
-    { ...MenuItems[0], closeIcon: false },
-  ]);
   const dispatch = useDispatch();
   const [currentSelectItem, setCurrentSelectItem] = useState<any>({});
   const model = useSelector((state: any) => state.viewModel.status);
+  const { selectMenu = [], tags } = useSelector((state: any) => state.userInfo); //面包屑
   const { activeKey } = useSelector((state: any) => state.tabs);
-
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -64,11 +61,11 @@ const Layer: React.FC = () => {
     console.log("historyItem", currentItem, historyItem);
     // 添加新tab
     if (!result) {
-      setTags([...tags, currentItem]);
+      dispatch(changeTags([...tags, currentItem]));
     }
     // 防止点击相同标签时重复刷新
     if (currentSelectItem && currentSelectItem.key !== currentItem.key) {
-      setMenuName(historyItem);
+      dispatch(changeSelectMenu(historyItem));
       dispatch(changeActive(currentItem.key));
       navigate(currentItem.path);
       setCurrentSelectItem(currentItem);
@@ -86,8 +83,8 @@ const Layer: React.FC = () => {
   };
 
   const handleBreadcrumb = () => {
-    return menuName.map((menu: any, index) => {
-      if (index + 1 === menuName.length && menuName.length > 1) {
+    return selectMenu.map((menu: any, index: any) => {
+      if (index + 1 === selectMenu.length && selectMenu.length > 1) {
         return {
           title: (
             <a onClick={() => navigate(menu.path)} href="">
@@ -103,7 +100,7 @@ const Layer: React.FC = () => {
   const handleTagClick = (key: string) => {
     const { historyItem } = getCurrentPath(MenuItems, key);
     const path = tags.find((tag: any) => tag.key === key)?.path;
-    setMenuName(historyItem);
+    dispatch(changeSelectMenu(historyItem));
     dispatch(changeActive(key));
     if (path) {
       navigate(path);
@@ -115,10 +112,10 @@ const Layer: React.FC = () => {
       const index = tags.findIndex((tag: any) => tag.key === key) - 1;
       dispatch(changeActive(tags[index]?.key || "1"));
       const { historyItem } = getCurrentPath(MenuItems, tags[index]?.key);
-      setMenuName(historyItem);
+      dispatch(changeSelectMenu(historyItem));
       navigate(tags[index]?.path);
     }
-    setTags(tags.filter((tag: any) => tag.key !== key));
+    dispatch(changeTags(tags.filter((tag: any) => tag.key !== key)));
   };
 
   const headerStyle: React.CSSProperties = {

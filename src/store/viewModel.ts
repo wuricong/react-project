@@ -1,15 +1,17 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const viewModelSlice = createSlice({
-  name: 'model',
-  initialState: {status: 'white'},
+  name: "model",
+  initialState: {
+    status: "white",
+  },
   reducers: {
     changeModel(state, action) {
-      state.status = action.payload
-    }
-  }
-})
+      state.status = action.payload;
+    },
+  },
+});
 
-export const {changeModel} = viewModelSlice.actions
+export const { changeModel } = viewModelSlice.actions;
 
-export default viewModelSlice.reducer
+export default viewModelSlice.reducer;

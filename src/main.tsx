@@ -10,7 +10,7 @@ import "./index.css";
 import "./assets/iconfont/iconfont.css";
 import "./styles/theme.less";
 
-console.log("当前环境", import.meta.env.MODE);
+console.log("当前环境", process.env.NODE_ENV, import.meta.env);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter
     basename={import.meta.env.MODE === "development" ? "" : "/react-project"}
