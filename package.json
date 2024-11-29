@@ -11,8 +11,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "preinstall": "npx only-allow pnpm"
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@ant-design/charts": "^2.2.1",
