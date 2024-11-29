@@ -7,6 +7,8 @@ import ShowTime from "@/page/dashboard/components/ShowTime";
 import fillZero, { getDaysMonth } from "@/utils";
 import Nail from "@/assets/svg/nail.tsx";
 
+// import { WebSocket } from "vite";
+
 function Backlog() {
   const [state, setState] = useState<any>();
   const [curDate, setCurDate] = useState(dayjs().format("YYYY-MM-DD"));
@@ -44,13 +46,18 @@ function Backlog() {
         days.unshift({
           date: date.prevMonthDays - item,
           _date: `${_date}-${date.prevMonthDays - item}`,
+          out: true,
         }),
       );
     }
 
     if (nextMonthList.length) {
       for (let i = 1; i <= 7 - nextMonthList.length; i++) {
-        days.push({ date: fillZero(i), _date: `${_date}-${_date}-${i}` });
+        days.push({
+          date: fillZero(i),
+          _date: `${_date}-${_date}-${i}`,
+          out: true,
+        });
       }
     }
     setState(() => {
@@ -69,7 +76,7 @@ function Backlog() {
   }, []);
 
   const handleMouseEnter = (e: any) => {
-    console.log("e", e);
+    // console.log("e", e);
   };
 
   const handleNextMonth = () => {
@@ -105,11 +112,12 @@ function Backlog() {
                   className="m-1 h-12 flex-1 flex items-center justify-center rounded relative"
                   style={{ backgroundColor: "#9694FF" }}
                 >
-                  {dayjs().format("YYYY-MM-DD") === itemA._date && (
-                    <div className="absolute top-1 right-1">
-                      <Nail />
-                    </div>
-                  )}
+                  {dayjs().format("YYYY-MM-DD") === itemA._date &&
+                    !itemA.out && (
+                      <div className="absolute top-1 right-1">
+                        <Nail />
+                      </div>
+                    )}
                   <div></div>
                   <div>{itemA.date}</div>
                 </div>
@@ -123,9 +131,58 @@ function Backlog() {
 }
 
 export default function Time() {
+  const [socketState, setWebSocket] = useState("测试websocket");
+  const aWebsocket: any = new WebSocket("http://localhost:8080");
+
+  aWebsocket.addEventListener("message", (res: any) => {
+    console.log("res", res);
+    setWebSocket(res.data);
+  });
+
+  aWebsocket.addEventListener("open", () => {
+    aWebsocket.send("hello");
+  });
+
   return (
     <div className="flex mb-4">
-      <div className="flex-1">今天是{dayjs().format("YYYY-MM-DD")}号</div>
+      <div className="flex-1">
+        <div>{socketState}</div>
+        <svg>
+          <rect width="100" height="100" fill="gold" />
+          <svg height="100" width="100" viewBox="0 0 100 100">
+            <line
+              className="beat"
+              x1="15"
+              y1="40"
+              x2="15"
+              y2="100"
+              stroke="blue"
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
+            <line
+              className="beat"
+              x1="50"
+              y1="20"
+              x2="50"
+              y2="100"
+              stroke="black"
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
+            <line
+              className="beat"
+              x1="85"
+              y1="40"
+              x2="85"
+              y2="100"
+              stroke="red"
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
+          </svg>
+        </svg>
+      </div>
       <Backlog></Backlog>
     </div>
   );

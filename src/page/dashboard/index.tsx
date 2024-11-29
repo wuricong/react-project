@@ -4,6 +4,8 @@ import DemoBar from "./components/Bar";
 import { HostInfo } from "./components/HostInfo";
 import { requestApi } from "@/service";
 import Time from "./components/Time";
+import DragSort from "@/page/dashboard/components/drag-sort.tsx";
+import "./index.less";
 
 const Page: React.FC = () => {
   const [list, setList] = useState([]);
@@ -42,6 +44,7 @@ const Page: React.FC = () => {
         <Line {...config} />
         <DemoBar />
       </div>
+      <DragSort />
     </>
   );
 };

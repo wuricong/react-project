@@ -34,8 +34,8 @@ export const MenuItems = [
   {
     key: "6",
     icon: <UploadOutlined />,
-    label: "上传相关",
-    path: "/SortList",
+    label: "上传",
+    path: "/upload-file",
   },
   {
     key: "7",

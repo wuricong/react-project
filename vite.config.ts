@@ -6,9 +6,8 @@ import { fileURLToPath } from "url";
 // @ts-ignore
 import path from "path";
 
-console.log(11111, process.env, process.env.NODE_ENV);
+// console.log(11111, process.env, process.env.NODE_ENV);
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // esModule 获取文件绝对路径
-// https://vitejs.dev/config/
 export default defineConfig({
   base: process.env.NODE_ENV === "development" ? "./" : " /react-project/",
   resolve: {
@@ -17,7 +16,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true,
-    host: "0.0.0.0",
+    // host: "0.0.0.0",
   },
   css: {
     preprocessorOptions: {

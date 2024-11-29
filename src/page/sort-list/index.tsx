@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Button, Input } from "antd";
 import { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Upload } from "antd";
@@ -43,6 +43,25 @@ export function UploadDmg() {
       <div style={{ marginTop: 8 }}>Upload</div>
     </button>
   );
+
+  const handleFileChange = (e: any) => {
+    console.log("e", e);
+    const reader = new FileReader();
+    reader.addEventListener("load", (file) => {
+      console.log("file", file);
+    });
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleFileDialog = () => {
+    // @ts-ignore
+    if (window.showOpenFilePicker) {
+      // @ts-ignore
+      window.showOpenFilePicker().then((res: any) => {
+        console.log("res", res);
+      });
+    }
+  };
   return (
     <>
       <Upload
@@ -54,6 +73,14 @@ export function UploadDmg() {
       >
         {imageUrl ? <img src="" alt="" /> : uploadButton}
       </Upload>
+
+      <div>原生上传</div>
+      <input type="file" onChange={handleFileChange} />
+
+      <div>自定义上传</div>
+      <Button type="primary" onClick={handleFileDialog}>
+        自定义上传
+      </Button>
     </>
   );
 }

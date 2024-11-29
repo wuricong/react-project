@@ -34,14 +34,14 @@ export default function MoneyTable() {
   ];
 
   const handleUpdate = () => {
-    updateMoneyList().then((res) => {
-      console.log("res", res);
+    updateMoneyList().then(({ data }: any) => {
+      setList(data);
     });
   };
   return (
     <>
       <div className="flex items-center justify-between mb-4">
-        <div className="font-bold">福布斯排行榜</div>
+        <div className="font-bold">福布斯香港排行榜</div>
         <div>
           <Button color="primary" variant="outlined" onClick={handleUpdate}>
             刷新

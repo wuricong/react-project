@@ -9,12 +9,12 @@ import SortList from "../page/sort-list";
 import Login from "../page/login";
 import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";
-import Dashboard from "../page/dashboard/index";
-import Table from "../page/components/table/index";
-import Dialog from "../page/components/dialog/index";
-import Form from "@/page/components/form/index";
-import List from "@/page/components/list/index.tsx";
-import Rich from "@/page/components/rich/index.tsx";
+import Dashboard from "../page/dashboard";
+import Table from "../page/components/table";
+import Dialog from "../page/components/dialog";
+import Form from "@/page/components/form";
+import List from "@/page/components/list";
+import Rich from "@/page/components/rich";
 
 function handleRouterPath() {
   const pages = import.meta.glob([
@@ -57,7 +57,7 @@ export const routes = [
         element: <Canvas />,
       },
       {
-        path: "SortList",
+        path: "upload-file",
         element: <SortList />,
       },
       {
