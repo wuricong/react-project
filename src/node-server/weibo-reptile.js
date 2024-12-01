@@ -44,6 +44,25 @@ export async function getForbesReportList() {
   return res.filter((item) => item.length > 1);
 }
 
+export async function getCNForbesReportList() {
+  const page = await browser.newPage();
+
+  await page.goto("https://www.forbeschina.com/lists/1839");
+
+  await page.waitForSelector(".dataTable");
+  const res = await page.$eval(".dataTable", (el) => {
+    const reportList = [];
+    //客户端运行的回调
+    const trList = el.querySelectorAll("tr");
+    [...trList]?.forEach((li) => {
+      const tdList = li.querySelectorAll("td");
+      reportList?.push([...tdList].map((td) => td.innerText));
+    });
+    return reportList;
+  });
+  return res.filter((item) => item.length > 1);
+}
+
 // const res = await getForbesReportList();
 // console.log(
 //   "res",

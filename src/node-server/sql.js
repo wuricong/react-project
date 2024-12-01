@@ -1,7 +1,11 @@
 import mysql from "mysql";
 import express from "express";
 import cors from "cors";
-import { getForbesReportList, getHostInfo } from "./weibo-reptile.js";
+import {
+  getCNForbesReportList,
+  getForbesReportList,
+  getHostInfo,
+} from "./weibo-reptile.js";
 import { exec } from "child_process";
 
 const app = express();
@@ -57,18 +61,23 @@ app.get("/updateMoneyList", (req, res) => {
       });
     });
     res.send(arr);
-    // data.forEach((item, index) => {
-    //   console.log(index, item, "index");
-    //   const insert = `INSERT INTO posts (id, ranking, name,englishName,wealth,source) VALUES (${index},${item[0]},'${item[1]}','${item[2]}',${item[3]},'${item[4]}')`;
-    //   connection.query(insert, (err, result) => {
-    //     if (err) {
-    //       console.log("err", err);
-    //     } else {
-    //       res.send(result);
-    //       console.log("result", result);
-    //     }
-    //   });
-    // });
+  });
+});
+
+app.get("/updateCNMoneyList", (req, res) => {
+  getCNForbesReportList().then((data) => {
+    console.log("data", data);
+    const arr = [];
+    data.forEach((item) => {
+      arr.push({
+        ranking: item[0],
+        name: item[1],
+        englishName: item[2],
+        wealth: item[3],
+        source: item[4],
+      });
+    });
+    res.send(arr);
   });
 });
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { DoubleLeftOutlined } from "@ant-design/icons";
 import { Layout, Menu, theme, Modal, Breadcrumb, Tabs } from "antd";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate, Outlet, useLocation, useOutlet } from "react-router-dom";
 import imgUrl from "@/assets/picture.jpeg";
 import "./index.less";
 import { MenuItems } from "./menu";
@@ -13,8 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModel } from "@/store/viewModel";
 import { changeActive } from "@/store/tabs.ts";
 import { changeSelectMenu, changeTags } from "@/store/userInfo.ts";
+import { KeepAlive, useKeepAliveRef } from "keepalive-for-react";
 
 const Layer: React.FC = () => {
+  const { pathname, search } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false);
   const { Header, Sider, Content } = Layout;
@@ -24,6 +26,8 @@ const Layer: React.FC = () => {
   const model = useSelector((state: any) => state.viewModel.status);
   const { selectMenu = [], tags } = useSelector((state: any) => state.userInfo); //面包屑
   const { activeKey } = useSelector((state: any) => state.tabs);
+  const aliveRef = useKeepAliveRef();
+  const outlet = useOutlet();
   useEffect(() => {
     const token = sessionStorage.getItem("password");
     if (!token) {
@@ -33,6 +37,14 @@ const Layer: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  /**
+   * 用于区分不同页面以进行缓存
+   */
+  const cacheKey = useMemo(() => {
+    console.log("pathname + search", pathname + search);
+    return pathname + search;
+  }, [pathname, search]);
 
   function getCurrentPath(menus: any, kl: string) {
     const len = kl.split("-");
@@ -201,7 +213,14 @@ const Layer: React.FC = () => {
             overflow: "auto",
           }}
         >
-          <Outlet></Outlet>
+          <KeepAlive
+            transition
+            aliveRef={aliveRef}
+            activeCacheKey={cacheKey}
+            max={18}
+          >
+            {outlet}
+          </KeepAlive>
         </Content>
       </Layout>
       <Modal

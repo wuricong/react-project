@@ -1,17 +1,25 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Button } from "antd";
-import { getMoneyTable, updateMoneyList } from "@/api/table";
+import { getMoneyTable, updateMoneyList, updateCNMoneyList } from "@/api/table";
 
 export default function MoneyTable() {
   const [list, setList] = useState([]);
+  const [CNList, setCNList] = useState([]);
 
   useEffect(() => {
-    getMoneyTable().then((res: any) => {
+    updateMoneyList().then((res: any) => {
       setList(res.data);
       const num = getMedianNum(res.data);
       console.log("num", num);
     });
+    // load();
   }, []);
+
+  const load = () => {
+    updateCNMoneyList().then((res: any) => {
+      setCNList(res.data);
+    });
+  };
 
   //求中位数
   function getMedianNum(list = []) {
@@ -24,6 +32,10 @@ export default function MoneyTable() {
       return nums[Math.floor(nums.length / 2)];
     }
   }
+
+  const handleUpdateCN = () => {
+    console.log(111);
+  };
 
   const columns = [
     { title: "序号", dataIndex: "ranking", key: "raking" },
@@ -38,13 +50,25 @@ export default function MoneyTable() {
       setList(data);
     });
   };
+
+  const handleAnalyse = () => {
+    console.log(11);
+  };
   return (
     <>
       <div className="flex items-center justify-between mb-4">
         <div className="font-bold">福布斯香港排行榜</div>
         <div>
-          <Button color="primary" variant="outlined" onClick={handleUpdate}>
+          <Button
+            style={{ marginRight: "8px" }}
+            color="primary"
+            variant="outlined"
+            onClick={handleUpdate}
+          >
             刷新
+          </Button>
+          <Button color="primary" variant="outlined" onClick={handleUpdateCN}>
+            分析
           </Button>
         </div>
       </div>
@@ -52,6 +76,28 @@ export default function MoneyTable() {
         locale={{ emptyText: "暂无数据" }}
         rowKey="ranking"
         dataSource={list}
+        columns={columns}
+      />
+      <div className="flex items-center justify-between mb-4">
+        <div className="font-bold">福布斯内地排行榜</div>
+        <div>
+          <Button
+            style={{ marginRight: "8px" }}
+            color="primary"
+            variant="outlined"
+            onClick={handleUpdateCN}
+          >
+            刷新
+          </Button>
+          <Button color="primary" variant="outlined" onClick={handleAnalyse}>
+            分析
+          </Button>
+        </div>
+      </div>
+      <Table
+        locale={{ emptyText: "暂无数据" }}
+        rowKey="ranking"
+        dataSource={CNList}
         columns={columns}
       />
     </>

@@ -68,6 +68,11 @@ export const MenuItems = [
         label: "表单",
         path: "/components/form",
       },
+      {
+        key: "7-6",
+        label: "虚拟列表",
+        path: "/components/virtual-list",
+      },
     ],
   },
 ];
