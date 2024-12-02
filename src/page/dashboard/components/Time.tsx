@@ -35,7 +35,7 @@ function Backlog() {
     const _date = dayjs(date.startData).format("YYYY-MM");
     let count = Number(date.endData?.split("-").at(-1));
     do {
-      days.unshift({ date: count, _date: `${_date}-${count}` });
+      days.unshift({ date: fillZero(count), _date: `${_date}-${count}` });
       count--;
     } while (count);
     const prevMonthList = getDaysMonth(date.weekStartDay);
@@ -44,7 +44,7 @@ function Backlog() {
     if (prevMonthList.length) {
       prevMonthList.forEach((item) =>
         days.unshift({
-          date: date.prevMonthDays - item,
+          date: fillZero(date.prevMonthDays - item),
           _date: `${_date}-${date.prevMonthDays - item}`,
           out: true,
         }),
@@ -110,7 +110,7 @@ function Backlog() {
                 <div
                   onMouseEnter={handleMouseEnter}
                   className="m-1 h-12 flex-1 flex items-center justify-center rounded relative"
-                  style={{ backgroundColor: "#9694FF" }}
+                  style={{ backgroundColor: itemA.out ? "#8fa4b8" : "#9694FF" }}
                 >
                   {dayjs().format("YYYY-MM-DD") ===
                     dayjs(itemA._date).format("YYYY-MM-DD") &&
@@ -119,7 +119,6 @@ function Backlog() {
                         <Nail />
                       </div>
                     )}
-                  <div></div>
                   <div>{itemA.date}</div>
                 </div>
               </Popover>

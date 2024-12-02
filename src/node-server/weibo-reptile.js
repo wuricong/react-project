@@ -81,6 +81,7 @@ export async function getExchange() {
       const list = item.querySelectorAll("td");
       arr.push([...list].map((i) => i.innerText));
     });
+    // page.close();
     return arr.filter((item) => item.length > 1);
   });
 }

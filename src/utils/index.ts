@@ -47,5 +47,5 @@ export function getDaysMonth(num: number) {
  * */
 
 export default function fillZero(val: number | string) {
-  return Number(val) > 0 ? `0${val}` : val;
+  return Number(val) < 10 ? `0${val}` : val;
 }
