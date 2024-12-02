@@ -11,9 +11,9 @@ const Page: React.FC = () => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    requestApi("/getInfoHost").then((res) => {
-      console.log("res", res);
-    });
+    // requestApi("/getInfoHost").then((res) => {
+    //   console.log("res", res);
+    // });
     setList([]);
   }, []);
   const data = [

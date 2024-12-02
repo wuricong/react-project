@@ -6,8 +6,8 @@ import { Button, Popover } from "antd";
 import ShowTime from "@/page/dashboard/components/ShowTime";
 import fillZero, { getDaysMonth } from "@/utils";
 import Nail from "@/assets/svg/nail.tsx";
-
-// import { WebSocket } from "vite";
+import { getExchange } from "@/api/table.ts";
+import { EXCHANGE } from "@/utils/enum.ts";
 
 function Backlog() {
   const [state, setState] = useState<any>();
@@ -112,7 +112,8 @@ function Backlog() {
                   className="m-1 h-12 flex-1 flex items-center justify-center rounded relative"
                   style={{ backgroundColor: "#9694FF" }}
                 >
-                  {dayjs().format("YYYY-MM-DD") === itemA._date &&
+                  {dayjs().format("YYYY-MM-DD") ===
+                    dayjs(itemA._date).format("YYYY-MM-DD") &&
                     !itemA.out && (
                       <div className="absolute top-1 right-1">
                         <Nail />
@@ -133,6 +134,7 @@ function Backlog() {
 export default function Time() {
   const [socketState, setWebSocket] = useState("测试websocket");
   const aWebsocket: any = new WebSocket("http://localhost:8080");
+  const [exchangeList, setExchangeList] = useState([]);
 
   aWebsocket.addEventListener("message", (res: any) => {
     console.log("res", res);
@@ -143,45 +145,38 @@ export default function Time() {
     aWebsocket.send("hello");
   });
 
+  useEffect(() => {
+    handleGetExchange();
+  }, []);
+
+  const handleGetExchange = () => {
+    getExchange().then((res: any) => {
+      const list = res.data.filter((item: any) =>
+        EXCHANGE.find((itemA) => item[0].includes(itemA)),
+      );
+      setExchangeList(list);
+    });
+  };
+
   return (
     <div className="flex mb-4">
       <div className="flex-1">
-        <div>{socketState}</div>
-        <svg>
-          <rect width="100" height="100" fill="gold" />
-          <svg height="100" width="100" viewBox="0 0 100 100">
-            <line
-              className="beat"
-              x1="15"
-              y1="40"
-              x2="15"
-              y2="100"
-              stroke="blue"
-              strokeWidth="10"
-              strokeLinecap="round"
-            />
-            <line
-              className="beat"
-              x1="50"
-              y1="20"
-              x2="50"
-              y2="100"
-              stroke="black"
-              strokeWidth="10"
-              strokeLinecap="round"
-            />
-            <line
-              className="beat"
-              x1="85"
-              y1="40"
-              x2="85"
-              y2="100"
-              stroke="red"
-              strokeWidth="10"
-              strokeLinecap="round"
-            />
-          </svg>
-        </svg>
+        <div className="mb-2">{socketState}</div>
+        <div className="mb-2">汇率表</div>
+        {exchangeList.map((item) => (
+          <div className="flex gap-1 mb-1">
+            <div style={{ width: "120px" }}>{item[0]}</div>
+            <div className="font-bold" style={{ color: "red" }}>
+              {Number(item[1]).toFixed(3)}
+            </div>
+            <div>元</div>
+          </div>
+        ))}
+        <div className="mt-2">
+          <Button size="small" type="primary" onClick={handleGetExchange}>
+            刷新
+          </Button>
+        </div>
       </div>
       <Backlog></Backlog>
     </div>

@@ -63,8 +63,24 @@ export async function getCNForbesReportList() {
   return res.filter((item) => item.length > 1);
 }
 
-// const res = await getForbesReportList();
-// console.log(
-//   "res",
-//   res.filter((item) => item.length > 1),
-// );
+export async function getExchange() {
+  const page = await browser.newPage();
+
+  await page.goto("https://iftp.chinamoney.com.cn/chinese/bkccpr");
+
+  await page.waitForSelector(".san-datasheet");
+  return await page.$eval(".san-datasheet", (el) => {
+    const sheet1 = el.querySelectorAll(".san-sheet-col-2 tbody tr");
+    const sheet2 = el.querySelectorAll(".san-sheet-col-1 tbody tr");
+    const arr = [];
+    sheet1.forEach((item) => {
+      const list = item.querySelectorAll("td");
+      arr.push([...list].map((i) => i.innerText));
+    });
+    sheet2.forEach((item) => {
+      const list = item.querySelectorAll("td");
+      arr.push([...list].map((i) => i.innerText));
+    });
+    return arr.filter((item) => item.length > 1);
+  });
+}

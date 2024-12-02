@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import {
   getCNForbesReportList,
+  getExchange,
   getForbesReportList,
   getHostInfo,
 } from "./weibo-reptile.js";
@@ -49,7 +50,6 @@ app.get("/moneyList", (req, res) => {
 
 app.get("/updateMoneyList", (req, res) => {
   getForbesReportList().then((data) => {
-    console.log("data", data);
     const arr = [];
     data.forEach((item) => {
       arr.push({
@@ -66,7 +66,6 @@ app.get("/updateMoneyList", (req, res) => {
 
 app.get("/updateCNMoneyList", (req, res) => {
   getCNForbesReportList().then((data) => {
-    console.log("data", data);
     const arr = [];
     data.forEach((item) => {
       arr.push({
@@ -90,5 +89,12 @@ app.get("/calendar", (req, res) => {
       res.send(result);
       console.log("result", result);
     }
+  });
+});
+
+//汇率相关
+app.get("/exchange", (req, res) => {
+  getExchange().then((r) => {
+    res.send(r);
   });
 });

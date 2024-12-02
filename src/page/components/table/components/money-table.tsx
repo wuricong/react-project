@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "antd";
 import { getMoneyTable, updateMoneyList, updateCNMoneyList } from "@/api/table";
+import type { TableColumnsType } from "antd";
+import { ConfigProvider } from "antd";
+import zhCN from "antd/locale/zh_CN";
 
 export default function MoneyTable() {
   const [list, setList] = useState([]);
@@ -12,7 +15,7 @@ export default function MoneyTable() {
       const num = getMedianNum(res.data);
       console.log("num", num);
     });
-    // load();
+    load();
   }, []);
 
   const load = () => {
@@ -55,7 +58,7 @@ export default function MoneyTable() {
     console.log(11);
   };
   return (
-    <>
+    <ConfigProvider locale={zhCN}>
       <div className="flex items-center justify-between mb-4">
         <div className="font-bold">福布斯香港排行榜</div>
         <div>
@@ -100,6 +103,6 @@ export default function MoneyTable() {
         dataSource={CNList}
         columns={columns}
       />
-    </>
+    </ConfigProvider>
   );
 }

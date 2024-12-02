@@ -21,3 +21,8 @@ export function updateCNMoneyList() {
 export function getCalendar() {
   return requestApi("/calendar");
 }
+
+//获取汇率
+export function getExchange() {
+  return requestApi("/exchange");
+}
