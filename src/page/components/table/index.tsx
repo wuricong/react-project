@@ -15,7 +15,6 @@ export default function () {
   // };
   return (
     <>
-      <div className="font-bold mb-4">基础表格</div>
       <Dialog onRef={dialogRef} />
       <MoneyTable />
     </>

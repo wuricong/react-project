@@ -11,10 +11,9 @@ const Page: React.FC = () => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    // requestApi("/getInfoHost").then((res) => {
-    //   console.log("res", res);
-    // });
-    setList([]);
+    requestApi("/getInfoHost").then((res: any) => {
+      setList(res.data);
+    });
   }, []);
   const data = [
     { year: "1991", value: 3 },
@@ -39,10 +38,14 @@ const Page: React.FC = () => {
   return (
     <>
       <Time />
-      <HostInfo list={list} />
+      <HostInfo />
       <div className="flex">
-        <Line {...config} />
-        <DemoBar />
+        <div style={{ width: "50%" }}>
+          <Line {...config} />
+        </div>
+        <div style={{ width: "50%" }}>
+          <DemoBar />
+        </div>
       </div>
       <DragSort />
     </>

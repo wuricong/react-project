@@ -71,8 +71,8 @@ app.get("/updateCNMoneyList", (req, res) => {
       arr.push({
         ranking: item[0],
         name: item[1],
-        englishName: item[2],
-        wealth: item[3],
+        wealth: item[2],
+        industry: item[3],
         source: item[4],
       });
     });
@@ -95,6 +95,11 @@ app.get("/calendar", (req, res) => {
 //汇率相关
 app.get("/exchange", (req, res) => {
   getExchange().then((r) => {
-    res.send(r);
+    const arr = r.map((item) => ({
+      type: item[0],
+      num: Number(item[1]),
+      range: Number(item[2]),
+    }));
+    res.send(arr);
   });
 });
