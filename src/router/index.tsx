@@ -5,7 +5,7 @@ import Home from "../page/home/index";
 import Throttle from "../page/throttle";
 import Redux from "../page/redux";
 import Canvas from "../page/canvas";
-import SortList from "../page/sort-list";
+import SortList from "../page/upload-list";
 import Login from "../page/login";
 import NotFound from "../page/404";
 import ResumeTemplate from "../page/resume";

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { App } from "antd";
 
 /**
  * 图片转base64编码(回调函数形式)
@@ -48,4 +49,12 @@ export function getDaysMonth(num: number) {
 
 export default function fillZero(val: number | string) {
   return Number(val) < 10 ? `0${val}` : val;
+}
+
+/**
+ * 全局提示
+ * */
+export function useMessage() {
+  const { message } = App.useApp();
+  return { message };
 }

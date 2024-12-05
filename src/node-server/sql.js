@@ -16,7 +16,8 @@ app.use(cors());
 
 app.listen(port, () => {
   console.log("服务启动成功,端口号为：" + port);
-  exec("node ./node_modules/vite/bin/vite.js");
+  // exec("node ./node_modules/vite/bin/vite.js");
+  exec("npm start");
 });
 const connection = mysql.createConnection({
   host: "localhost",

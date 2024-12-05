@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import { useLayoutEffect, useEffect, useRef, useState } from "react";
 import Counter from "../../features/counter/Counter";
+import RegVerify from "@/page/throttle/component/reg-verify.tsx";
 
 const list = [
   "title1",
@@ -45,14 +46,13 @@ function Throttle() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [second, setSecond] = useState(60);
   useEffect(() => {
-    console.log(11);
     return () => {
       console.log("页面离开");
     };
   }, []);
-  useLayoutEffect(() => {
-    console.log(111);
-  }, []);
+  // useLayoutEffect(() => {
+  //   console.log(111);
+  // }, []);
   const [searchList, setSearchList] = useState<string[]>([]);
   const inputRef = useRef(null);
   const [count, setCount] = useState(1);
@@ -110,6 +110,7 @@ function Throttle() {
           {isDisabled ? second : "开始记时"}
         </Button>
         <TimeCount timeCount={5} />
+        <RegVerify />
       </div>
     </>
   );

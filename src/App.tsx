@@ -2,8 +2,8 @@ import "./App.css";
 import { routes } from "./router";
 import { useRoutes } from "react-router-dom";
 
-export function App() {
+export function Page() {
   return <>{useRoutes(routes)}</>;
 }
 
-export default App;
+export default Page;
