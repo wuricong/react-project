@@ -23,9 +23,14 @@ function HostInfo() {
       <div className="ml-4 my-2 flex flex-wrap">
         {list.length
           ? list?.map((li: any) => (
-              <div className="w-1/4 mr-4 mb-2" key={li.index}>
+              <a
+                href={li.link}
+                target="_blank"
+                className="w-1/4 mr-4 mb-2"
+                key={li.index}
+              >
                 {li?.context}
-              </div>
+              </a>
             ))
           : "暂无数据"}
       </div>

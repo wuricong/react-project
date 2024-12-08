@@ -13,17 +13,21 @@ const browserLaunch = async (url) => {
   return { page, browser };
 };
 
+const ORIGIN_URL = "https://s.weibo.com/top/summary?cate=realtimehot";
+
 //获取微博热搜榜单
 export async function getHostInfo() {
-  const { page, browser } = await browserLaunch(
-    "https://s.weibo.com/top/summary?cate=realtimehot",
-  );
+  const { page, browser } = await browserLaunch(ORIGIN_URL);
 
   await page.waitForSelector(".data");
   const res = await page.$eval(".data", (el) => {
     //客户端运行的回调
     const list = el.querySelectorAll(".td-02 a");
-    return [...list]?.map((li, index) => ({ index, context: li.innerText }));
+    return [...list]?.map((li, index) => ({
+      index,
+      context: li.innerText,
+      link: li.href,
+    }));
   });
   await browser.close();
   return res;
