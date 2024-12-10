@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import dayjs from "dayjs";
 
 const browserLaunch = async (url) => {
   const browser = await puppeteer.launch({
@@ -23,11 +24,13 @@ export async function getHostInfo() {
   const res = await page.$eval(".data", (el) => {
     //客户端运行的回调
     const list = el.querySelectorAll(".td-02 a");
-    return [...list]?.map((li, index) => ({
-      index,
-      context: li.innerText,
-      link: li.href,
-    }));
+    return [...list]
+      .filter((item) => item.href !== "javascript:void(0);")
+      ?.map((li, index) => ({
+        index,
+        context: li.innerText,
+        link: li.href,
+      }));
   });
   await browser.close();
   return res;

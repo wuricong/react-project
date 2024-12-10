@@ -1,9 +1,9 @@
 import { Popover } from "antd";
 
 interface Prop {
-  text?: "";
+  content?: "";
 }
 
 export default function (props: Prop) {
-  return <Popover className="">{props.text}</Popover>;
+  return <Popover className="">{props.content}</Popover>;
 }

@@ -1,20 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Line } from "@ant-design/charts";
 import DemoBar from "./components/Bar";
-import { HostInfo } from "./components/HostInfo";
-import { requestApi } from "@/service";
+import { HostInfo } from "./components/host-info";
 import Time from "./components/Time";
 import DragSort from "@/page/dashboard/components/drag-sort.tsx";
 import "./index.less";
 
 const Page: React.FC = () => {
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    requestApi("/getInfoHost").then((res: any) => {
-      setList(res.data);
-    });
-  }, []);
   const data = [
     { year: "1991", value: 3 },
     { year: "1992", value: 4 },
