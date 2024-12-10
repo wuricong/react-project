@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { MenuItems } from "@/layout/menu.tsx";
 import dayjs from "dayjs";
+import { setExchangeList } from "@/api/table.ts";
 
 const userInfo = createSlice({
   name: "userInfo",
@@ -8,7 +9,7 @@ const userInfo = createSlice({
     selectMenu: [{ label: "首页" }],
     token: "",
     tags: [{ ...MenuItems[0], closeIcon: false }],
-    exchange: localStorage.getItem("exchangeDate"),
+    exchange: null,
   },
   reducers: {
     changeSelectMenu(state, action) {
@@ -22,11 +23,10 @@ const userInfo = createSlice({
       state.token = "";
       state.tags = [{ ...MenuItems[0], closeIcon: false }];
     },
-    setExchange(state) {
+    setExchange(state, action) {
       const date = dayjs().format("YYYY-MM-DD");
-      console.log("action", state);
-      const params = {};
-      localStorage.setItem("exchangeDate", date);
+      //async fn 异步函数
+      setExchangeList(action.payload);
     },
   },
 });

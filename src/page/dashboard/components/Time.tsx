@@ -34,7 +34,7 @@ export default function Time() {
         list.sort((a: any, b: any) => b.num - a.num);
         console.log("exchange", exchange);
         if (!exchange || exchange !== dayjs().format("YYYY-MM-DD")) {
-          dispatch(setExchange());
+          dispatch(setExchange(list));
         }
         setExchangeList(list);
       })

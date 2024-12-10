@@ -4,10 +4,8 @@ import { Button } from "antd";
 
 export default function Counter() {
   const count = useSelector((state: any) => {
-    console.log("state", state);
     return state.value?.counter;
   });
-  console.log("count", count);
   const dispatch = useDispatch();
   return (
     <div className="my-2">

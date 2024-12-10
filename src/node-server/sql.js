@@ -1,4 +1,5 @@
 import mysql from "mysql";
+import dayjs from "dayjs";
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -9,18 +10,51 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
-let createSqlTable =
-  "CREATE TABLE posts(id int AUTO_INCREMENT,ranking VARCHAR(255),name VARCHAR(255),englishName VARCHAR(255),wealth VARCHAR(255),source VARCHAR(255),PRIMARY KEY(id))";
-
-const addExchangeData = () => {
-  const querySql = "select date from exchangeRate";
-
-  const sql =
-    "INSERT INTO exchangeRate (id,date, realUS,realPound,realEuro,realHKD) VALUES (?,?,?)";
-
-  connection.query(sql, (err, res) => {
-    console.log("res", res);
+const execSql = (sql) => {
+  return new Promise((resolve, reject) => {
+    connection.query(sql, (err, res) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(res);
+    });
   });
 };
 
-addExchangeData();
+export const getExchangeData = () =>
+  new Promise((resolve, reject) => {
+    const querySql = "select * from exchangeRate";
+
+    connection.query(querySql, (err, res) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(res);
+    });
+  });
+
+const getSqlFormLen = async () => {
+  const sql = "SELECT COUNT(*) FROM exchangeRate";
+  return await execSql(sql);
+};
+
+const querySqlDateCol = async () => {
+  const date = dayjs().format("YYYY-MM-DD");
+  const sql = `SELECT * FROM exchangeRate WHERE date=${date} `;
+  return await execSql(sql);
+};
+
+export const addExchangeData = async (data) => {
+  const res = await getSqlFormLen();
+  const index = res[0]["COUNT(*)"];
+  const result = querySqlDateCol();
+  console.log("result", result);
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO exchangeRate (id,date, realUS,realPound,realEuro,realHKD) VALUES (${index + 1},'2024-12-10',${data[2]},${data[0]},${data[1]},${data[4]})`;
+    execSql(sql).then((res) => {
+      resolve(res);
+    });
+  });
+};

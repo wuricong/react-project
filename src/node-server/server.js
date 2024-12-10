@@ -1,4 +1,3 @@
-import mysql from "mysql";
 import express from "express";
 import cors from "cors";
 import {
@@ -9,11 +8,13 @@ import {
 } from "./network-request.js";
 import "./sql.js";
 import { exec } from "child_process";
+import { addExchangeData, getExchangeData } from "./sql.js";
 
 const app = express();
 const port = "9090";
 
 app.use(cors());
+app.use(express.json());
 
 app.get("/test", (req, res) => {
   res.send("test请求成功");
@@ -73,7 +74,6 @@ app.get("/calendar", (req, res) => {
       console.log("err", err);
     } else {
       res.send(result);
-      console.log("result", result);
     }
   });
 });
@@ -88,6 +88,19 @@ app.get("/exchange", (req, res) => {
     }));
     res.send(arr);
   });
+});
+
+app.get("/history-exchange", (req, res) => {
+  getExchangeData().then((r) => {
+    res.send(r);
+  });
+});
+
+app.post("/insert-exchange", (req, res) => {
+  addExchangeData(req.body).then(() => {
+    res.send("写入数据库成功");
+  });
+  console.log("req", req.body);
 });
 
 app.listen(port, () => {

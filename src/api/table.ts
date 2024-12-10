@@ -26,3 +26,13 @@ export function getCalendar() {
 export function getExchange() {
   return requestApi("/exchange");
 }
+
+//添加今日汇率
+export function setExchangeList(data: any) {
+  return requestApi("/insert-exchange", data, "post");
+}
+
+//获取历史汇率
+export function getHistoryExchange() {
+  return requestApi("/history-exchange");
+}
