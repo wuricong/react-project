@@ -28,7 +28,7 @@ export function getExchange() {
 }
 
 //添加今日汇率
-export function setExchangeList(data: any) {
+export function setFetchExchangeList(data: any) {
   return requestApi("/insert-exchange", data, "post");
 }
 

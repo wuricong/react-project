@@ -23,14 +23,9 @@ const execSql = (sql) => {
 };
 
 export const getExchangeData = () =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const querySql = "select * from exchangeRate";
-
-    connection.query(querySql, (err, res) => {
-      if (err) {
-        reject(err);
-        return;
-      }
+    execSql(querySql).then((res) => {
       resolve(res);
     });
   });
@@ -40,21 +35,28 @@ const getSqlFormLen = async () => {
   return await execSql(sql);
 };
 
+const getSqlFormData = async (name) => {
+  const sql = `SELECT * FROM ${name}`;
+  return await execSql(sql);
+};
+
 const querySqlDateCol = async () => {
   const date = dayjs().format("YYYY-MM-DD");
-  const sql = `SELECT * FROM exchangeRate WHERE date=${date} `;
+  const sql = `SELECT * FROM exchangeRate WHERE date='${date}'`;
   return await execSql(sql);
 };
 
 export const addExchangeData = async (data) => {
-  const res = await getSqlFormLen();
-  const index = res[0]["COUNT(*)"];
-  const result = querySqlDateCol();
-  console.log("result", result);
-  return new Promise((resolve, reject) => {
-    const sql = `INSERT INTO exchangeRate (id,date, realUS,realPound,realEuro,realHKD) VALUES (${index + 1},'2024-12-10',${data[2]},${data[0]},${data[1]},${data[4]})`;
-    execSql(sql).then((res) => {
-      resolve(res);
-    });
+  const result = await querySqlDateCol();
+  let d = dayjs().format("YYYY-MM-DD");
+  return new Promise((resolve) => {
+    if (!result.length) {
+      const sql = `INSERT INTO exchangeRate (date, realUS,realPound,realEuro,realHKD) VALUES (${d},${data[2]["num"]},${data[0]["num"]},${data[1]["num"]},${data[4]["num"]})`;
+      execSql(sql).then((res) => {
+        resolve(res);
+      });
+    } else {
+      resolve({ code: "200" });
+    }
   });
 };

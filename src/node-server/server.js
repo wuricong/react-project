@@ -97,10 +97,9 @@ app.get("/history-exchange", (req, res) => {
 });
 
 app.post("/insert-exchange", (req, res) => {
-  addExchangeData(req.body).then(() => {
-    res.send("写入数据库成功");
+  addExchangeData(req.body).then((r) => {
+    res.send(r);
   });
-  console.log("req", req.body);
 });
 
 app.listen(port, () => {

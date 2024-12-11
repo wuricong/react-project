@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button, Spin } from "antd";
-import { getExchange } from "@/api/table.ts";
+import { getExchange, setFetchExchangeList } from "@/api/table.ts";
 import { EXCHANGE } from "@/utils/enum.ts";
 import { LoadingOutlined } from "@ant-design/icons";
 import Backlog from "@/page/dashboard/components/Backlog.tsx";
 import { useDispatch, useSelector } from "react-redux";
-import { setExchange } from "@/store/userInfo.ts";
 import dayjs from "dayjs";
 
 export default function Time() {
@@ -32,10 +31,12 @@ export default function Time() {
           EXCHANGE.find((itemA) => item.type?.includes(itemA)),
         );
         list.sort((a: any, b: any) => b.num - a.num);
-        console.log("exchange", exchange);
-        if (!exchange || exchange !== dayjs().format("YYYY-MM-DD")) {
-          dispatch(setExchange(list));
-        }
+        setFetchExchangeList(list).then(({ data }: any) => {
+          console.log("res", data.code);
+          if (data?.code !== "200") {
+            dispatch({ type: "userInfo/exchange", payload: list });
+          }
+        });
         setExchangeList(list);
       })
       .finally(() => {

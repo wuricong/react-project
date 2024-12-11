@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { MenuItems } from "@/layout/menu.tsx";
-import dayjs from "dayjs";
-import { setExchangeList } from "@/api/table.ts";
 
 const userInfo = createSlice({
   name: "userInfo",
@@ -23,15 +21,9 @@ const userInfo = createSlice({
       state.token = "";
       state.tags = [{ ...MenuItems[0], closeIcon: false }];
     },
-    setExchange(state, action) {
-      const date = dayjs().format("YYYY-MM-DD");
-      //async fn 异步函数
-      setExchangeList(action.payload);
-    },
   },
 });
 
-export const { changeSelectMenu, changeTags, clearUserInfo, setExchange } =
-  userInfo.actions;
+export const { changeSelectMenu, changeTags, clearUserInfo } = userInfo.actions;
 
 export default userInfo.reducer;
