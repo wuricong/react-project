@@ -50,8 +50,9 @@ export const addExchangeData = async (data) => {
   const result = await querySqlDateCol();
   let d = dayjs().format("YYYY-MM-DD");
   return new Promise((resolve) => {
-    if (!result.length) {
-      const sql = `INSERT INTO exchangeRate (date, realUS,realPound,realEuro,realHKD) VALUES (${d},${data[2]["num"]},${data[0]["num"]},${data[1]["num"]},${data[4]["num"]})`;
+    if (result.length) {
+      const sql = `INSERT INTO exchangeRate (date, realUS,realPound,realEuro,realHKD) VALUES ('${d}',${data[2]["num"]},${data[0]["num"]},${data[1]["num"]},${data[4]["num"]})`;
+      console.log(2222222);
       execSql(sql).then((res) => {
         resolve(res);
       });

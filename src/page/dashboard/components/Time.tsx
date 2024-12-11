@@ -6,6 +6,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import Backlog from "@/page/dashboard/components/Backlog.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
+import { changeExchangeHistoryList } from "@/store/userInfo.ts";
 
 export default function Time() {
   const dispatch = useDispatch();
@@ -21,6 +22,10 @@ export default function Time() {
     handleGetExchange();
   }, []);
 
+  useEffect(() => {
+    console.log("exchange", exchange);
+  }, [exchange]);
+
   useEffect(() => {}, [exchangeList]);
 
   const handleGetExchange = () => {
@@ -32,9 +37,8 @@ export default function Time() {
         );
         list.sort((a: any, b: any) => b.num - a.num);
         setFetchExchangeList(list).then(({ data }: any) => {
-          console.log("res", data.code);
           if (data?.code !== "200") {
-            dispatch({ type: "userInfo/exchange", payload: list });
+            dispatch(changeExchangeHistoryList(list));
           }
         });
         setExchangeList(list);

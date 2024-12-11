@@ -21,9 +21,17 @@ const userInfo = createSlice({
       state.token = "";
       state.tags = [{ ...MenuItems[0], closeIcon: false }];
     },
+    changeExchangeHistoryList(state: any, action: any) {
+      state.exchange = action.payload;
+    },
   },
 });
 
-export const { changeSelectMenu, changeTags, clearUserInfo } = userInfo.actions;
+export const {
+  changeSelectMenu,
+  changeTags,
+  clearUserInfo,
+  changeExchangeHistoryList,
+} = userInfo.actions;
 
 export default userInfo.reducer;
