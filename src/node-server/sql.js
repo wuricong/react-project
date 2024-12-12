@@ -40,19 +40,18 @@ const getSqlFormData = async (name) => {
   return await execSql(sql);
 };
 
-const querySqlDateCol = async () => {
-  const date = dayjs().format("YYYY-MM-DD");
+const querySqlDateCol = async (date) => {
   const sql = `SELECT * FROM exchangeRate WHERE date='${date}'`;
   return await execSql(sql);
 };
 
-export const addExchangeData = async (data) => {
-  const result = await querySqlDateCol();
-  let d = dayjs().format("YYYY-MM-DD");
+export const addExchangeData = async (info) => {
+  const { list, date } = info;
+  const result = await querySqlDateCol(date);
+  const cols = "date, realUS,realPound,realEuro,realHKD";
   return new Promise((resolve) => {
-    if (result.length) {
-      const sql = `INSERT INTO exchangeRate (date, realUS,realPound,realEuro,realHKD) VALUES ('${d}',${data[2]["num"]},${data[0]["num"]},${data[1]["num"]},${data[4]["num"]})`;
-      console.log(2222222);
+    if (!result.length) {
+      const sql = `INSERT INTO exchangeRate (${cols}) VALUES ('${date}',${list[2]["num"]},${list[0]["num"]},${list[1]["num"]},${list[4]["num"]})`;
       execSql(sql).then((res) => {
         resolve(res);
       });

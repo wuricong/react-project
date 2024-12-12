@@ -36,7 +36,11 @@ export default function Time() {
           EXCHANGE.find((itemA) => item.type?.includes(itemA)),
         );
         list.sort((a: any, b: any) => b.num - a.num);
-        setFetchExchangeList(list).then(({ data }: any) => {
+        let params = {
+          list,
+          date: dayjs().format("YYYY-MM-DD"),
+        };
+        setFetchExchangeList(params).then(({ data }: any) => {
           if (data?.code !== "200") {
             dispatch(changeExchangeHistoryList(list));
           }

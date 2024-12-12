@@ -104,5 +104,5 @@ app.post("/insert-exchange", (req, res) => {
 
 app.listen(port, () => {
   console.log("服务启动成功,端口号为：" + port);
-  exec("npm start");
+  // exec("npm start");
 });
