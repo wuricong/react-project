@@ -31,6 +31,15 @@ export function getPrevMonthEndDay(month = null) {
 }
 
 /**
+ * 是否是周末
+ * @param date 传入的日期
+ * */
+export function isWeekend(date: string) {
+  const day = dayjs(date).day();
+  return [0, 6].includes(day);
+}
+
+/**
  * 数字转数组
  * @param num 传入的数字
  * */
@@ -46,7 +55,6 @@ export function getDaysMonth(num: number) {
  * 补零
  * @params val
  * */
-
 export default function fillZero(val: number | string) {
   return Number(val) < 10 ? `0${val}` : val;
 }

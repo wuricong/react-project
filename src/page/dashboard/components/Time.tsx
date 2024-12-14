@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { changeExchangeHistoryList } from "@/store/userInfo.ts";
 import { Area } from "@ant-design/charts";
+import { isWeekend } from "@/utils";
 
 export default function Time() {
   const [config, setConfig] = useState({
@@ -38,7 +39,6 @@ export default function Time() {
   });
   const dispatch = useDispatch();
   const { exchange } = useSelector((state: any) => {
-    console.log(state.userInfo, "state");
     return state.userInfo;
   });
 
@@ -63,28 +63,29 @@ export default function Time() {
 
   useEffect(() => {}, [exchangeList]);
 
-  const handleGetExchange = () => {
+  const handleGetExchange = async () => {
     setLoading(true);
-    getExchange()
-      .then((res: any) => {
-        const list = res.data.filter((item: any) =>
-          EXCHANGE.find((itemA) => item.type?.includes(itemA)),
-        );
-        list.sort((a: any, b: any) => b.num - a.num);
-        let params = {
-          list,
-          date: dayjs().format("YYYY-MM-DD"),
-        };
-        setFetchExchangeList(params).then(({ data }: any) => {
-          if (data?.code !== "200") {
-            dispatch(changeExchangeHistoryList(list));
-          }
-        });
-        setExchangeList(list);
-      })
-      .finally(() => {
-        setLoading(false);
+    try {
+      const res: any = await getExchange();
+      const list = res.data.filter((item: any) =>
+        EXCHANGE.find((itemA) => item.type?.includes(itemA)),
+      );
+      list.sort((a: any, b: any) => b.num - a.num);
+      setExchangeList(list);
+      let date = dayjs().format("YYYY-MM-DD");
+      if (isWeekend(date)) return;
+      let params = {
+        list,
+        date,
+      };
+      setFetchExchangeList(params).then(({ data }: any) => {
+        if (data?.code !== "200") {
+          dispatch(changeExchangeHistoryList(list));
+        }
       });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
