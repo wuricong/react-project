@@ -19,6 +19,12 @@ export default function Time() {
     xField: "date",
     yField: "value",
     axis: { x: { label: false, tick: false } },
+    line: {
+      style: {
+        stroke: "darkgreen",
+        strokeWidth: 2,
+      },
+    },
     scale: {
       y: {
         type: "linear",
