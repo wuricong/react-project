@@ -1,14 +1,35 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Spin } from "antd";
-import { getExchange, setFetchExchangeList } from "@/api/table.ts";
+import {
+  getExchange,
+  getHistoryExchange,
+  setFetchExchangeList,
+} from "@/api/table.ts";
 import { EXCHANGE } from "@/utils/enum.ts";
 import { LoadingOutlined } from "@ant-design/icons";
 import Backlog from "@/page/dashboard/components/Backlog.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { changeExchangeHistoryList } from "@/store/userInfo.ts";
+import { Area } from "@ant-design/charts";
 
 export default function Time() {
+  const [config, setConfig] = useState({
+    height: 220,
+    xField: "date",
+    yField: "value",
+    axis: { x: { label: false, tick: false } },
+    scale: {
+      y: {
+        type: "linear",
+        domain: [0, 100],
+        nice: true,
+      },
+    },
+    style: {
+      fill: "linear-gradient(-90deg, white 0%, #9694FF 100%)",
+    },
+  });
   const dispatch = useDispatch();
   const { exchange } = useSelector((state: any) => {
     console.log(state.userInfo, "state");
@@ -20,6 +41,14 @@ export default function Time() {
 
   useEffect(() => {
     handleGetExchange();
+    getHistoryExchange().then((res: any) => {
+      const arr = res.data.map((item: any) => {
+        return { date: item.date, value: item.realUS * 10000 - 71800 };
+      });
+      setConfig((e) => {
+        return { ...e, data: arr };
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -73,7 +102,7 @@ export default function Time() {
                 </div>
               ))}
             </div>
-            <div>折线图</div>
+            <Area className="flex-1" {...config} />
           </div>
           <div className="mt-2">
             <Button size="small" type="primary" onClick={handleGetExchange}>

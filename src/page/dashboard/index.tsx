@@ -1,5 +1,5 @@
 import React from "react";
-import { Line } from "@ant-design/charts";
+import { Line, Area } from "@ant-design/charts";
 import DemoBar from "./components/Bar";
 import { HostInfo } from "./components/host-info";
 import Time from "./components/Time";
@@ -25,6 +25,23 @@ const Page: React.FC = () => {
     xField: "year",
     yField: "value",
     colorField: "#9694FF",
+    padding: "auto",
+    forceFit: true,
+    smooth: true,
+    axis: {
+      x: {
+        tick: false,
+      },
+    },
+    point: { visible: true },
+    gridAreaFill: "#1890ff",
+    areaStyle: {
+      fill: "l(270) 0:#bae7ff 1:#1890ff", // 渐变填充颜色
+    },
+    label: {
+      visible: true,
+      type: "point",
+    },
   };
 
   return (
