@@ -17,6 +17,7 @@ import { isWeekend } from "@/utils";
 export default function Time() {
   const [config, setConfig] = useState({
     height: 220,
+    data: [],
     xField: "date",
     yField: "value",
     axis: { x: { label: false, tick: false } },
@@ -99,7 +100,7 @@ export default function Time() {
           <div className="mb-2">汇率表</div>
           <div className="flex">
             <div>
-              {exchangeList.map((item: any, index) => (
+              {exchangeList?.map((item: any, index) => (
                 <div key={index} className="flex gap-1 mb-1">
                   <div style={{ width: "120px" }}>{item.type}</div>
                   <div className="font-bold" style={{ color: "red" }}>

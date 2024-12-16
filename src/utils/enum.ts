@@ -1,3 +1,5 @@
+import rifBg from "@/assets/card-img/ruanyifeng.jpg";
+
 export const WEEK_DAYS = ["日", "一", "二", "三", "四", "五", "六"];
 
 export const EXCHANGE = ["美元", "欧元", "日元", "英镑", "港元"];
@@ -12,4 +14,12 @@ export const SPRING_LIST = [
   "2031-01-23",
   "2032-02-11",
   "2033-01-31",
+];
+
+export const CARD_LIST = [
+  {
+    title: "阮一峰的网络日志",
+    url: "https://www.ruanyifeng.com/blog/",
+    bg: rifBg,
+  },
 ];

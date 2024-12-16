@@ -26,21 +26,14 @@ const Page: React.FC = () => {
     yField: "value",
     colorField: "#9694FF",
     padding: "auto",
-    forceFit: true,
-    smooth: true,
     axis: {
       x: {
         tick: false,
       },
     },
-    point: { visible: true },
     gridAreaFill: "#1890ff",
     areaStyle: {
       fill: "l(270) 0:#bae7ff 1:#1890ff", // 渐变填充颜色
-    },
-    label: {
-      visible: true,
-      type: "point",
     },
   };
 
@@ -52,9 +45,7 @@ const Page: React.FC = () => {
         <div style={{ width: "50%" }}>
           <Line {...config} />
         </div>
-        <div style={{ width: "50%" }}>
-          <DemoBar />
-        </div>
+        <div style={{ width: "50%" }}>{<DemoBar />}</div>
       </div>
       <DragSort />
     </>

@@ -2,11 +2,13 @@ import { Select, Button } from "antd";
 import { useState } from "react";
 import RemoteSearchSelect from "../../components/remote-search-select";
 import "./index.less";
+import Card from "@/page/redux/components/card.tsx";
 
 function Redux() {
   return (
     <>
       <Count />
+      <Card />
     </>
   );
 }
