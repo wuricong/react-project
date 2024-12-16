@@ -16,7 +16,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     open: true,
-    // host: "0.0.0.0",
+    host: "0.0.0.0", // 监听所有地址 （局域网和公网地址）
   },
   css: {
     preprocessorOptions: {
