@@ -21,17 +21,15 @@ export default function Time() {
     xField: "date",
     yField: "value",
     axis: { x: { label: false, tick: false } },
+    //提示相关的配置
+    tooltip: (d: any) => {
+      return { value: d.orgValue, name: "汇率" };
+    },
     line: {
       style: {
-        stroke: "darkgreen",
+        stroke: "#782fcc", // 线条颜色
         strokeWidth: 2,
-      },
-    },
-    scale: {
-      y: {
-        type: "linear",
-        domain: [0, 100],
-        nice: true,
+        strokeColor: "red",
       },
     },
     style: {
@@ -50,7 +48,11 @@ export default function Time() {
     handleGetExchange();
     getHistoryExchange().then((res: any) => {
       const arr = res.data.map((item: any) => {
-        return { date: item.date, value: item.realUS * 10000 - 71800 };
+        return {
+          date: item.date,
+          value: item.realUS * 10000 - 71800,
+          orgValue: item.realUS,
+        };
       });
       setConfig((e) => {
         return { ...e, data: arr };

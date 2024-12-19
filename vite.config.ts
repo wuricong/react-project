@@ -17,6 +17,7 @@ export default defineConfig({
   server: {
     open: true,
     host: "0.0.0.0", // 监听所有地址 （局域网和公网地址）
+    port: 5175,
   },
   css: {
     preprocessorOptions: {
