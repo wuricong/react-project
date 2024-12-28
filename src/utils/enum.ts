@@ -28,7 +28,7 @@ export const CARD_LIST = [
   },
   {
     title: "Lodash",
-    url: "https://www.ruanyifeng.com/blog/",
+    url: "https://www.lodashjs.com/",
     style: {
       backgroundImage: "linear-gradient(45deg, #4688fc, #2051a5)",
     },
