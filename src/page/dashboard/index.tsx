@@ -37,6 +37,13 @@ const Page: React.FC = () => {
     },
   };
 
+  //建立 socket 连接
+  const socket = new WebSocket("ws://localhost:8080");
+
+  socket.onmessage = (event) => {
+    console.log("content", event);
+  };
+
   return (
     <>
       <Time />

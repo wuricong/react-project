@@ -9,7 +9,9 @@ import Spring from "@/assets/svg/Spring.tsx";
 import { Button, Popover } from "antd";
 import ShowTime from "@/page/dashboard/components/show-time.tsx";
 
-function Backlog() {
+function Diary(props: any) {
+  const { className = "" } = props;
+
   const [state, setState] = useState<any>();
   const [curDate, setCurDate] = useState(dayjs().format("YYYY-MM-DD"));
 
@@ -103,7 +105,7 @@ function Backlog() {
   };
 
   return (
-    <div className="backlog flex-1">
+    <div className={`backlog flex-1 ${className}`}>
       <div>待办事项</div>
       <div className="flex items-center justify-between px-2 my-2">
         <Button type="primary" onClick={() => switchMonth(-1)}>
@@ -122,7 +124,10 @@ function Backlog() {
                 <div
                   onMouseEnter={handleMouseEnter}
                   className="m-1 h-12 flex-1 flex items-center justify-center rounded relative"
-                  style={{ backgroundColor: itemA.out ? "#dadce3" : "#9694FF" }}
+                  style={{
+                    backgroundColor: itemA.out ? "#dadce3" : "#9694FF",
+                    minWidth: "80px",
+                  }}
                 >
                   {handleFestival(itemA)}
                   <div>{itemA.date}</div>
@@ -136,4 +141,4 @@ function Backlog() {
   );
 }
 
-export default Backlog;
+export default Diary;

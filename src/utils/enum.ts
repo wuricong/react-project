@@ -1,4 +1,5 @@
 import rifBg from "@/assets/card-img/ruanyifeng.jpg";
+import LodashImg from "@/assets/card-img/lodash.png";
 
 export const WEEK_DAYS = ["日", "一", "二", "三", "四", "五", "六"];
 
@@ -20,6 +21,44 @@ export const CARD_LIST = [
   {
     title: "阮一峰的网络日志",
     url: "https://www.ruanyifeng.com/blog/",
-    bg: rifBg,
+    style: {
+      backgroundImage: `url(${rifBg})`,
+      backgroundSize: "cover",
+    },
+  },
+  {
+    title: "Lodash",
+    url: "https://www.ruanyifeng.com/blog/",
+    style: {
+      backgroundImage: "linear-gradient(45deg, #4688fc, #2051a5)",
+    },
+  },
+  {
+    title: "blank",
+    url: "https://www.ruanyifeng.com/blog/",
+    style: {
+      backgroundImage: "linear-gradient(45deg, #ccb330, #d48f2f)",
+    },
+  },
+  {
+    title: "blank1",
+    url: "https://www.ruanyifeng.com/blog/",
+    style: {
+      backgroundColor: "#601071",
+    },
+  },
+  {
+    title: "blank",
+    url: "https://www.ruanyifeng.com/blog/",
+    style: {
+      backgroundImage: "linear-gradient(45deg, #fa4d4e, #fe990a)",
+    },
+  },
+  {
+    title: "blank",
+    url: "https://www.ruanyifeng.com/blog/",
+    style: {
+      backgroundImage: "linear-gradient(45deg, #c87bff, #22b9fe)",
+    },
   },
 ];

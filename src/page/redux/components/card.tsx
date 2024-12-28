@@ -10,14 +10,11 @@ function Card() {
     }
   };
   return (
-    <div className="card-box">
+    <div className="card-box flex flex-wrap mt-2">
       {CARD_LIST.map((card: any, index) => (
         <div
           key={index}
-          style={{
-            backgroundImage: `url(${card.bg})`,
-            backgroundSize: "cover",
-          }}
+          style={card.style}
           onClick={() => handleCardClick(card.url)}
           className="card"
         >

@@ -155,7 +155,7 @@ const Layer: React.FC = () => {
         collapsible
         collapsed={collapsed}
       >
-        <img className="demo-logo-vertical" src={imgUrl} />
+        <img className="demo-logo-vertical" src={imgUrl} alt="" />
         <Menu
           theme="dark"
           mode="inline"

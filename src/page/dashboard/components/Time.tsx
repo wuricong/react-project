@@ -7,7 +7,7 @@ import {
 } from "@/api/table.ts";
 import { EXCHANGE } from "@/utils/enum.ts";
 import { LoadingOutlined } from "@ant-design/icons";
-import Backlog from "@/page/dashboard/components/Backlog.tsx";
+import Diary from "@/page/dashboard/components/Diary.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import dayjs from "dayjs";
 import { changeExchangeHistoryList } from "@/store/userInfo.ts";
@@ -74,18 +74,19 @@ export default function Time() {
         EXCHANGE.find((itemA) => item.type?.includes(itemA)),
       );
       list.sort((a: any, b: any) => b.num - a.num);
+      console.log("list", list);
       setExchangeList(list);
       let date = dayjs().format("YYYY-MM-DD");
       if (isWeekend(date)) return;
-      let params = {
-        list,
-        date,
-      };
-      setFetchExchangeList(params).then(({ data }: any) => {
-        if (data?.code !== "200") {
-          dispatch(changeExchangeHistoryList(list));
-        }
-      });
+      // let params = {
+      //   list,
+      //   date,
+      // };
+      // setFetchExchangeList(params).then(({ data }: any) => {
+      //   if (data?.code !== "200") {
+      //     dispatch(changeExchangeHistoryList(list));
+      //   }
+      // });
     } finally {
       setLoading(false);
     }
@@ -93,35 +94,34 @@ export default function Time() {
 
   return (
     <div className="flex mb-4">
-      <div className="flex-1">
-        <Spin
-          indicator={<LoadingOutlined spin />}
-          spinning={loading}
-          size="small"
-        >
-          <div className="mb-2">汇率表</div>
-          <div className="flex">
-            <div>
-              {exchangeList?.map((item: any, index) => (
-                <div key={index} className="flex gap-1 mb-1">
-                  <div style={{ width: "120px" }}>{item.type}</div>
-                  <div className="font-bold" style={{ color: "red" }}>
-                    {item?.num}
-                  </div>
-                  <div>元</div>
+      <Spin
+        className="flex-1"
+        indicator={<LoadingOutlined spin />}
+        spinning={loading}
+        size="small"
+      >
+        <div className="mb-2">汇率表</div>
+        <div className="flex">
+          <div>
+            {exchangeList?.map((item: any, index) => (
+              <div key={index} className="flex gap-1 mb-1">
+                <div style={{ width: "120px" }}>{item.type}</div>
+                <div className="font-bold" style={{ color: "red" }}>
+                  {item?.num}
                 </div>
-              ))}
-            </div>
-            <Area className="flex-1" {...config} />
+                <div>元</div>
+              </div>
+            ))}
           </div>
-          <div className="mt-2">
-            <Button size="small" type="primary" onClick={handleGetExchange}>
-              刷新
-            </Button>
-          </div>
-        </Spin>
-      </div>
-      <Backlog></Backlog>
+          <Area className="flex-1" {...config} />
+        </div>
+        <div className="mt-2">
+          <Button size="small" type="primary" onClick={handleGetExchange}>
+            刷新
+          </Button>
+        </div>
+      </Spin>
+      <Diary></Diary>
     </div>
   );
 }

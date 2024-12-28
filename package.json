@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ant-design/charts": "^2.2.1",
+    "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/icons": "^5.3.7",
     "@ant-design/plots": "^2.3.2",
     "@antv/data-set": "^0.11.8",
