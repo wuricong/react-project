@@ -11,6 +11,8 @@ import { exec } from "child_process";
 import { addExchangeData, getExchangeData } from "./sql.js";
 import dayjs from "dayjs";
 
+export const EXCHANGE = ["美元", "欧元", "日元", "英镑", "港元"];
+
 const app = express();
 const port = "9090";
 
@@ -95,7 +97,11 @@ app.get("/exchange", async (req, res) => {
   }));
   res.send(arr);
   if (!isWeekend(date)) {
-    await addExchangeData(arr);
+    console.log("addExchangeData", arr);
+    const list = arr.filter((item) =>
+      EXCHANGE.find((itemA) => item.type?.includes(itemA)),
+    );
+    await addExchangeData({ list, date });
   }
 });
 

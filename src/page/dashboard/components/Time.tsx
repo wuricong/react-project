@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Spin } from "antd";
-import {
-  getExchange,
-  getHistoryExchange,
-  setFetchExchangeList,
-} from "@/api/table.ts";
+import { getExchange, getHistoryExchange } from "@/api/table.ts";
 import { EXCHANGE } from "@/utils/enum.ts";
 import { LoadingOutlined } from "@ant-design/icons";
 import Diary from "@/page/dashboard/components/Diary.tsx";
