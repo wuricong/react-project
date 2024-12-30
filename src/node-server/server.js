@@ -97,7 +97,6 @@ app.get("/exchange", async (req, res) => {
   }));
   res.send(arr);
   if (!isWeekend(date)) {
-    console.log("addExchangeData", arr);
     const list = arr.filter((item) =>
       EXCHANGE.find((itemA) => item.type?.includes(itemA)),
     );
