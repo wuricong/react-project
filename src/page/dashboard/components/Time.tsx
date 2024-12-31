@@ -40,8 +40,8 @@ export default function Time() {
   const [exchangeList, setExchangeList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    handleGetExchange();
+  const load = async () => {
+    await handleGetExchange();
     getHistoryExchange().then((res: any) => {
       const arr = res.data.map((item: any) => {
         return {
@@ -54,6 +54,10 @@ export default function Time() {
         return { ...e, data: arr };
       });
     });
+  };
+
+  useEffect(() => {
+    load();
   }, []);
 
   useEffect(() => {
@@ -70,19 +74,7 @@ export default function Time() {
         EXCHANGE.find((itemA) => item.type?.includes(itemA)),
       );
       list.sort((a: any, b: any) => b.num - a.num);
-      console.log("list", list);
       setExchangeList(list);
-      let date = dayjs().format("YYYY-MM-DD");
-      if (isWeekend(date)) return;
-      // let params = {
-      //   list,
-      //   date,
-      // };
-      // setFetchExchangeList(params).then(({ data }: any) => {
-      //   if (data?.code !== "200") {
-      //     dispatch(changeExchangeHistoryList(list));
-      //   }
-      // });
     } finally {
       setLoading(false);
     }

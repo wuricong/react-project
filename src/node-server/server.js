@@ -95,13 +95,13 @@ app.get("/exchange", async (req, res) => {
     num: Number(item[1]),
     range: Number(item[2]),
   }));
-  res.send(arr);
   if (!isWeekend(date)) {
     const list = arr.filter((item) =>
       EXCHANGE.find((itemA) => item.type?.includes(itemA)),
     );
     await addExchangeData({ list, date });
   }
+  res.send(arr);
 });
 
 app.get("/history-exchange", (req, res) => {
