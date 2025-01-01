@@ -5,8 +5,8 @@ import { Tag } from "antd";
 
 export default function ResumeTemplate() {
   return (
-    <div className="bg-slate-200 w-full h-full flex justify-center overflow-auto">
-      <div className="px-1 a4">
+    <div className="bg-slate-200 w-full flex flex-col justify-center items-center overflow-auto">
+      <div className="px-1 a4 my-4">
         <Title />
         <Personal />
         <InfoRow text="公司" />
@@ -15,6 +15,8 @@ export default function ResumeTemplate() {
         <MyTechnology />
         <InfoRow text="项目经验" />
         <Project />
+      </div>
+      <div className="px-1 a4 my-4">
         <InfoRow text="兴趣爱好" />
       </div>
     </div>

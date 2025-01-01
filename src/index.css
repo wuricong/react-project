@@ -17,6 +17,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;;
 
+    /*禁止弹性下拉效果*/
+    overflow: hidden;
+
     height: 100%;
 }
 
@@ -35,6 +38,7 @@ body {
     place-items: center;
     min-width: 320px;
     height: 100%;
+    overflow: scroll;
 }
 
 h1 {

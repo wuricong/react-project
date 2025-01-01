@@ -35,12 +35,6 @@ export default function Personal() {
       </div>
       <div className="flex justify-start">
         <div className="w-40 flex-1 whitespace-nowrap">
-          <span>home-page：</span>
-          <span>15070301734@163.com</span>
-        </div>
-      </div>
-      <div className="flex justify-start">
-        <div className="w-40 flex-1 whitespace-nowrap">
           <span>github：</span>
           <a href="https://github.com/wuricong" target="_blank">
             https://github.com/wuricong
