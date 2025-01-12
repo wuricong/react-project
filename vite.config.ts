@@ -11,8 +11,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url)); // esModule èŽ·å
 export default defineConfig(({ mode }) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
-  console.log("mode", mode, import.meta);
+  console.log("mode", mode, process.env.NODE_ENV);
   return {
+    base: process.env.NODE_ENV === "development" ? "./" : " /react-project/",
     resolve: {
       alias: { "@": "/src" },
     },
