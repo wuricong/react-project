@@ -3,6 +3,7 @@ import Background from "../../assets/bg1.jpg";
 import { Button, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { createRef, useEffect, useState } from "react";
+import { AuthLogin } from "@/api";
 
 const styleUrl = {
   backgroundImage: `url(${Background})`,
@@ -24,16 +25,14 @@ function Login() {
     input.current.focus();
   }, []);
   const handleLogin = () => {
-    if (account !== "admin") {
-      messageApi.error("账号错误");
-      return;
-    }
-    if (password !== "2260220325") {
-      messageApi.error("密码错误");
-      return;
-    }
-    sessionStorage.setItem("password", "2260220325");
-    navigate("/dashboard");
+    let params = {
+      username: account,
+      password,
+    };
+    AuthLogin(params).then((res) => {
+      sessionStorage.setItem("password", "2260220325");
+      navigate("/dashboard");
+    });
   };
 
   const handleInputAccount = (val: string) => {

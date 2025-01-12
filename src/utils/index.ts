@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { App } from "antd";
+import { loadEnv } from "vite";
 
 /**
  * 图片转base64编码(回调函数形式)
@@ -65,4 +66,11 @@ export default function fillZero(val: number | string) {
 export function useMessage() {
   const { message } = App.useApp();
   return { message };
+}
+
+/**
+ * @description 获取当前环境变量
+ * */
+export function getEnv() {
+  // const env = loadEnv()
 }

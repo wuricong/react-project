@@ -85,7 +85,7 @@ function Project() {
   return (
     <div>
       <div className="text-base font-bold pb-1">一、eSource前后台系统</div>
-      <p className="pl-2">
+      <div className="pl-2">
         <p className="text-sm font-bold">
           项目描述：该系统是服务于医药公司临床试验的数据可视化大型SASS应用，实现研究者信息采集，
           受试者数据上报，系统中包含访视，质疑，核查，稽查轨迹,
@@ -95,7 +95,7 @@ function Project() {
           技术栈：Webpack + Vue3 + Element + Axios + Typescript
         </p>
         <p className="text-sm">
-          项目职责：
+          <span>项目职责：</span>
           参与项目评审，从技术角度评估需求的合理性，结合UI以及产品展示对应的界面效果；
           利用 Vue-cli 搭建项目，搭配 Element UI 完成前端项目基建；
           使用Vuex管理全局状态，实现登录状态Token的持久化；
@@ -106,7 +106,7 @@ function Project() {
           通过覆写组件更改一些UI组件的默认行为；
           开发高难度的可配置报表模版，编写计算汇总，数据结构转换与渲染的算法；
         </p>
-      </p>
+      </div>
     </div>
   );
 }

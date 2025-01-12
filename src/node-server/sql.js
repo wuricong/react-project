@@ -60,3 +60,7 @@ export const addExchangeData = async (info) => {
     }
   });
 };
+
+//创建新的数据表
+const createLogin =
+  "create table login ( id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password_hash VARCHAR(255) NOT NULL)";
