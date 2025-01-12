@@ -13,7 +13,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, root);
   console.log("mode", mode, import.meta);
   return {
-    base: process.env.NODE_ENV === "development" ? "./" : " /react-project/",
     resolve: {
       alias: { "@": "/src" },
     },
