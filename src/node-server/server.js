@@ -13,13 +13,19 @@ import dayjs from "dayjs";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import session from "express-session";
+import jwt from "jsonwebtoken";
 
 export const EXCHANGE = ["美元", "欧元", "日元", "英镑", "港元"];
 
 const app = express();
 const port = "9090";
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5175",
+    credentials: true, // 允许发送 Cookies
+  }),
+);
 app.use(express.json());
 // 使用body-parser对request内的数据进行一个format，使得我们易于获取数据
 app.use(bodyParser.json());
@@ -38,24 +44,36 @@ app.use(
     saveUninitialized: true, // 强制将未初始化的 session 存储。默认值是true，建议设置成true
     resave: false, // 强制保存 session 即使它并没有变化,。默认为 true。建议设置成 false。
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24, //设置过期时间是一天
+      httpOnly: true,
+      sameSite: "Lax", // 允许跨站点请求携带 cookie
+      // maxAge: 1000 * 60 * 60 * 24, //设置过期时间是一天 或者 expires 设置过期时间，同时存在 max-age 优先级更高
+      maxAge: 1000 * 60,
     },
     rolling: true, // 在每次请求时强行设置 cookie，这将重置 cookie 过期时间，默认：false
   }),
 );
 
+const users = {
+  admin: { username: "admin", password: "123456" },
+};
+
 app.use(function (req, res, next) {
   const { userInfo } = req?.session;
+  console.log("userInfo", userInfo);
   if (req.url !== "/login") {
-    // if (!userInfo) {
-    //   res.send({ flag: false, status: 403, msg: "登录已过期,请重新登录" });
-    // } else {
-    //   next();
-    // }
-    next();
+    if (!userInfo) {
+      res.send({ flag: false, status: 403, msg: "登录已过期,请重新登录" });
+    } else {
+      next();
+    }
   } else {
     next();
   }
+});
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Expose-Headers", "test"); // 允许前端获取的自定义头部
+  next();
 });
 
 function isWeekend(date) {
@@ -158,7 +176,23 @@ app.post("/insert-exchange", (req, res) => {
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
-  // res.session.userinfo = { username, password };
+  const secret = "tsuki";
+  const token = jwt.sign({ username, password }, secret);
+  console.log("token", token);
+  req.session.userInfo = { username, password };
+  if (users[username] && users[username] === password) {
+    res.send({ code: 200, msg: "登录成功" });
+  } else {
+    res.send({ code: 400, msg: "登录失败，密码或账号错误" });
+  }
+});
+
+app.post("/logout", (req, res) => {
+  const { username, password } = req.body;
+  const secret = "tsuki";
+  const token = jwt.sign({ username, password }, secret);
+  console.log("token", token);
+  req.session.userInfo = { username, password };
   res.send({ code: 200, msg: "登录成功" });
 });
 

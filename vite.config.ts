@@ -6,12 +6,13 @@ import { fileURLToPath } from "url";
 // @ts-ignore
 import path from "path";
 
-// console.log(11111, process.env, process.env.NODE_ENV);
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // esModule 获取文件绝对路径
 export default defineConfig(({ mode }) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
-  console.log("mode", mode, process.env.NODE_ENV);
+  console.log("env", env);
+  // const viteEnv = handleEnv(env);
+  // const { VITE_SERVER_PORT, VITE_PROXY } = viteEnv;
   return {
     base: process.env.NODE_ENV === "development" ? "./" : " /react-project/",
     resolve: {

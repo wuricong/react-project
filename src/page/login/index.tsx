@@ -29,10 +29,16 @@ function Login() {
       username: account,
       password,
     };
-    AuthLogin(params).then((res) => {
+    AuthLogin(params).then((res: any) => {
       sessionStorage.setItem("password", "2260220325");
+      const setCookie = res.headers["set-cookie"];
+      console.log("cookie", document.cookie, setCookie);
       navigate("/dashboard");
     });
+  };
+
+  const handleRegister = () => {
+    console.log("注册");
   };
 
   const handleInputAccount = (val: string) => {
@@ -81,9 +87,14 @@ function Login() {
             />
           </div>
 
-          <Button className="login-btn" type="primary" onClick={handleLogin}>
-            登录
-          </Button>
+          <div className="flex justify-center items-center gap-4 login-btn">
+            <Button type="primary" onClick={handleLogin}>
+              登录
+            </Button>
+            <Button type="primary" onClick={handleRegister}>
+              注册
+            </Button>
+          </div>
         </div>
 
         <Button

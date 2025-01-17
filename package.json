@@ -37,6 +37,7 @@
     "g2": "^2.3.13",
     "g2-react": "^1.3.2",
     "i18next": "^23.14.0",
+    "jsonwebtoken": "^9.0.2",
     "keepalive-for-react": "^3.0.4",
     "loadable": "^1.0.0",
     "mysql": "^2.18.1",
