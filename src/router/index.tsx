@@ -78,6 +78,6 @@ export const routes = [
   },
   {
     path: "*",
-    element: <Login />,
+    element: <NotFound />,
   },
 ];

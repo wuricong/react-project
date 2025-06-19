@@ -25,17 +25,16 @@ function Login() {
     input.current.focus();
   }, []);
   const handleLogin = () => {
-    // let params = {
-    //   username: account,
-    //   password,
-    // };
-    // AuthLogin(params).then((res: any) => {
-    //   sessionStorage.setItem("password", "2260220325");
-    //   const setCookie = res.headers["set-cookie"];
-    //   console.log("cookie", document.cookie, setCookie);
-    //   navigate("/dashboard");
-    // });
-    navigate("/dashboard");
+    let params = {
+      username: account,
+      password,
+    };
+    AuthLogin(params).then((res: any) => {
+      sessionStorage.setItem("password", "2260220325");
+      const setCookie = res.headers["set-cookie"];
+      console.log("cookie", document.cookie, setCookie);
+      navigate("/dashboard");
+    });
   };
 
   const handleRegister = () => {
