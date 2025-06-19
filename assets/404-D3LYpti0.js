@@ -1,1 +1,0 @@
-import{j as t,u as s}from"./index-By_CDCOs.js";const n="/react-project/assets/404-CU6ashCu.jpg";function r(){const e=()=>{s()("login")};return t.jsxs(t.Fragment,{children:[t.jsx("div",{className:"w-full h-full flex items-center justify-center",style:{background:"#CBCBD3"},children:t.jsx("img",{src:n,alt:""})}),t.jsx("button",{onClick:e,children:"返回"})]})}export{r as default};
