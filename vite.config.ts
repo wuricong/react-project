@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
   const isGithub = mode === "github";
   console.log("env", env);
   return {
-    base: isGithub ? "/react-project/" : "./",
+    base: isGithub ? "/react-project/" : "/",
     resolve: {
       alias: { "@": "/src" },
     },
