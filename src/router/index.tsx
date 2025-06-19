@@ -63,11 +63,11 @@ export const routes = [
       {
         path: "/components",
         children: [
-          { path: "/list", element: <List /> },
-          { path: "/dialog", element: <Dialog /> },
-          { path: "/rich", element: <Rich /> },
-          { path: "/form", element: <Form /> },
-          { path: "/table", element: <Table /> },
+          { path: "list", element: <List /> },
+          { path: "dialog", element: <Dialog /> },
+          { path: "rich", element: <Rich /> },
+          { path: "form", element: <Form /> },
+          { path: "table", element: <Table /> },
         ],
       },
     ],
