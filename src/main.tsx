@@ -15,7 +15,7 @@ import zhCN from "antd/locale/zh_CN";
 import "dayjs/locale/zh-cn";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename={import.meta.env.VITE_BASIC_ROUTER_PATH}>
+  <BrowserRouter basename="/">
     {/*<React.StrictMode>*/}
     <ConfigProvider
       locale={zhCN}
