@@ -37,31 +37,31 @@ export const routes = [
     element: <Layout />,
     children: [
       {
-        path: "/dashboard",
+        path: "dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/home",
+        path: "home",
         element: <Home />,
       },
       {
-        path: "/throttle",
+        path: "throttle",
         element: <Throttle />,
       },
       {
-        path: "/redux",
+        path: "redux",
         element: <Redux />,
       },
       {
-        path: "/canvas",
+        path: "canvas",
         element: <Canvas />,
       },
       {
-        path: "/upload-file",
+        path: "upload-file",
         element: <SortList />,
       },
       {
-        path: "/components",
+        path: "components",
         children: [
           { path: "list", element: <List /> },
           { path: "dialog", element: <Dialog /> },
