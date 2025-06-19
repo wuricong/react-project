@@ -14,8 +14,15 @@ import zhCN from "antd/locale/zh_CN";
 // for date-picker i18n
 import "dayjs/locale/zh-cn";
 
+setTimeout(() => {
+  console.log(
+    "import.meta.env.VITE_BASIC_ROUTER_PATH",
+    import.meta.env.VITE_BASIC_ROUTER_PATH,
+  );
+}, 1000);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename="project">
+  <BrowserRouter basename={import.meta.env.VITE_BASIC_ROUTER_PATH}>
     {/*<React.StrictMode>*/}
     <ConfigProvider
       locale={zhCN}
