@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
   // const viteEnv = handleEnv(env);
   // const { VITE_SERVER_PORT, VITE_PROXY } = viteEnv;
   return {
-    base: isGithub ? " /react-project/" : "/",
+    base: isGithub ? "/react-project/" : "./",
     resolve: {
       alias: { "@": "/src" },
     },
