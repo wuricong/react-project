@@ -22,7 +22,7 @@ setTimeout(() => {
 }, 1000);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter basename="/react-project">
+  <BrowserRouter basename={import.meta.env.VITE_BASIC_ROUTER_PATH}>
     {/*<React.StrictMode>*/}
     <ConfigProvider
       locale={zhCN}
