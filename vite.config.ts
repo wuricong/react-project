@@ -13,8 +13,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, root);
   const isGithub = mode === "github";
   console.log("env", env);
-  // const viteEnv = handleEnv(env);
-  // const { VITE_SERVER_PORT, VITE_PROXY } = viteEnv;
   return {
     base: isGithub ? "/react-project/" : "./",
     resolve: {
