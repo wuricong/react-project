@@ -41,6 +41,10 @@ export default function Time() {
   const [loading, setLoading] = useState(false);
 
   const load = async () => {
+    const time = dayjs().format("YYYY-MM-DD 09:30");
+    const cur_time = dayjs().format("YYYY-MM-DD HH:mm");
+    console.log(dayjs(time).isBefore(dayjs(cur_time)));
+
     await handleGetExchange();
     getHistoryExchange().then((res: any) => {
       const arr = res.data.map((item: any) => {

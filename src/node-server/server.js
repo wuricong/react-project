@@ -47,7 +47,7 @@ app.use(
       httpOnly: true,
       sameSite: "Lax", // 允许跨站点请求携带 cookie
       // maxAge: 1000 * 60 * 60 * 24, //设置过期时间是一天 或者 expires 设置过期时间，同时存在 max-age 优先级更高
-      maxAge: 1000 * 60,
+      maxAge: 1000 * 60 * 5, //设置过期时间
     },
     rolling: true, // 在每次请求时强行设置 cookie，这将重置 cookie 过期时间，默认：false
   }),
@@ -59,7 +59,6 @@ const users = {
 
 app.use(function (req, res, next) {
   const { userInfo } = req?.session;
-  console.log("userInfo", userInfo);
   if (req.url !== "/login") {
     if (!userInfo) {
       res.send({ flag: false, status: 403, msg: "登录已过期,请重新登录" });
@@ -79,6 +78,13 @@ app.use((req, res, next) => {
 function isWeekend(date) {
   const day = dayjs(date).day();
   return [0, 6].includes(day);
+}
+
+// 只在当天 9 点半之后请求数据
+function isUpdate() {
+  const time = dayjs().format("YYYY-MM-DD 09:30");
+  const cur_time = dayjs().format("YYYY-MM-DD HH:mm");
+  return dayjs(time).isBefore(dayjs(cur_time));
 }
 
 app.get("/test", (req, res) => {
@@ -152,7 +158,7 @@ app.get("/exchange", async (req, res) => {
     num: Number(item[1]),
     range: Number(item[2]),
   }));
-  if (!isWeekend(date)) {
+  if (!isWeekend(date) && isUpdate()) {
     const list = arr.filter((item) =>
       EXCHANGE.find((itemA) => item.type?.includes(itemA)),
     );
@@ -180,6 +186,9 @@ app.post("/login", (req, res) => {
   const token = jwt.sign({ username, password }, secret);
   console.log("token", token);
   req.session.userInfo = { username, password };
+  // 暴露自定义响应头
+  // res.set("Access-Control-Expose-Headers", "*");
+  // res.header("DIY-response", "111"); //自定义响应头
   if (users[username] && users[username] === password) {
     res.send({ code: 200, msg: "登录成功" });
   } else {
@@ -188,12 +197,20 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  const { username, password } = req.body;
-  const secret = "tsuki";
-  const token = jwt.sign({ username, password }, secret);
-  console.log("token", token);
-  req.session.userInfo = { username, password };
-  res.send({ code: 200, msg: "登录成功" });
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).json({ message: "登出失败" });
+    } else {
+      res.clearCookie("connect.sid");
+      res.status(200).json({ message: "登出成功" });
+    }
+  });
+  // const { username, password } = req.body;
+  // const secret = "tsuki";
+  // const token = jwt.sign({ username, password }, secret);
+  // console.log("token", token);
+  // req.session.userInfo = { username, password };
+  // res.send({ code: 200, msg: "登录成功" });
 });
 
 app.listen(port, () => {

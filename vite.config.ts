@@ -5,20 +5,25 @@ import tailwindcss from "tailwindcss";
 import { fileURLToPath } from "url";
 // @ts-ignore
 import path from "path";
+import { visualizer } from "rollup-plugin-visualizer"; //打包分析工具
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url)); // esModule 获取文件绝对路径
 export default defineConfig(({ mode }) => {
   const root = process.cwd();
   const env = loadEnv(mode, root);
+  const isGithub = mode === "github";
   console.log("env", env);
   // const viteEnv = handleEnv(env);
   // const { VITE_SERVER_PORT, VITE_PROXY } = viteEnv;
   return {
-    base: process.env.NODE_ENV === "development" ? "./" : " /react-project/",
+    build: {
+      sourcemap: true,
+      outDir: isGithub ? "/react-project/" : "dist",
+    },
     resolve: {
       alias: { "@": "/src" },
     },
-    plugins: [react()],
+    plugins: [react(), visualizer()],
     server: {
       open: true,
       host: "0.0.0.0", // 监听所有地址 （局域网和公网地址）
@@ -35,11 +40,6 @@ export default defineConfig(({ mode }) => {
       postcss: {
         plugins: [tailwindcss],
       },
-    },
-    build: {
-      // outDir: "react-project",
-      // assetsDir: "react-project/assets",
-      sourcemap: true,
     },
   };
 });

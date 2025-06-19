@@ -18,6 +18,7 @@ http.interceptors.request.use((req) => {
 //响应拦截
 http.interceptors.response.use((res: any) => {
   const { status, data } = res;
+  console.log("res", res);
   if (status === 404) {
     message.error("找不到资源");
   }
