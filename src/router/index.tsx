@@ -29,7 +29,7 @@ handleRouterPath();
 
 export const routes = [
   {
-    path: "login",
+    path: "/login",
     element: <Login />,
   },
   {
