@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function NotFound() {
   const handleBack = () => {
     const navigate = useNavigate();
-    navigate("/login");
+    navigate("login");
   };
   return (
     <>
